@@ -20,8 +20,15 @@
 // CAN bus IDs for Talon controllers
 enum
 {
-    LF_CAN_ID = 1,
-    RF_CAN_ID = 2,
-    LR_CAN_ID = 3,
-    RR_CAN_ID = 4
+    // Pedro
+    // LF_CAN_ID = 3,
+    // LR_CAN_ID = 4,
+    // RF_CAN_ID = 1,
+    // RR_CAN_ID = 2
+
+    // P2020
+    LF_CAN_ID = 3,
+    LR_CAN_ID = 4,
+    RF_CAN_ID = 5,
+    RR_CAN_ID = 6
 };

@@ -10,7 +10,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() 
+{
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -37,12 +39,12 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit() 
 {
-    m_autonomousCommand = m_container.GetAutonomousCommand();
+    // m_autonomousCommand = m_container.GetAutonomousCommand();
 
-    if (m_autonomousCommand != nullptr) 
-    {
-        m_autonomousCommand->Schedule();
-    }
+    // if (m_autonomousCommand != nullptr) 
+    // {
+    //     m_autonomousCommand->Schedule();
+    // }
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -53,11 +55,11 @@ void Robot::TeleopInit()
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != nullptr) 
-    {
-        m_autonomousCommand->Cancel();
-        m_autonomousCommand = nullptr;
-    }
+    // if (m_autonomousCommand != nullptr) 
+    // {
+    //     m_autonomousCommand->Cancel();
+    //     m_autonomousCommand = nullptr;
+    // }
 
     m_driveCommand = m_container.GetDriveCommand();
 
@@ -70,7 +72,9 @@ void Robot::TeleopInit()
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() 
+{
+}
 
 /**
  * This function is called periodically during test mode.

@@ -37,7 +37,9 @@ frc2::Command *RobotContainer::GetDriveCommand()
 // ***** private methods *****
 void RobotContainer::ConfigureButtonBindings() 
 {
-  // Initialize classes for xbox controllers
-  g_controller0 = std::make_unique<ControllerState>(0);
-  g_controller1 = std::make_unique<ControllerState>(1);
+    // Initialize classes for xbox controllers
+    g_controller0 = std::make_unique<ControllerState>(0);
+    g_controller1 = std::make_unique<ControllerState>(1);
+    g_controller0->InitializeButtonStates();
+    g_controller1->InitializeButtonStates();
 }

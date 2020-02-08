@@ -24,11 +24,14 @@ void DriveCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void DriveCommand::Execute()
 {
+    // get state of xbox controller controls
+    g_controller0->GetState();
+
     // get raw joystick values and +- sign
     //this pulls the joystick values into the program.
     //(gets the state) gets what you want to do
     float leftX = -g_controller0->GetLeftY();
-    float rightX = -g_controller0->GetRightY();
+    float rightX = g_controller0->GetRightY();
 
     //if the joystick values are almost the same, make them the same to make driving straight easier.
     //The issue was that slight input on the right stick would stop or slow down the input on the left side, and vice versa.
@@ -54,6 +57,8 @@ void DriveCommand::Execute()
     // always >= .4 and <= 1.0!!!
     // Turbo mode
     double gain = (g_controller0->GetRightTrig() > 0.2 ? 1.0 : 0.6);
+
+    printf("left motor = %3.2f right motor = %3.2f\n", gain*leftY, gain*rightY);
 
     m_subsystem->SetLeftSpeed(gain * leftY);
     m_subsystem->SetRightSpeed(gain * rightY);
