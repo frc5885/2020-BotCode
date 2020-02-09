@@ -9,6 +9,8 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTableEntry.h>
 
 #include "RobotContainer.h"
 

@@ -53,6 +53,20 @@ void DriveCommand::Execute()
         rightY = temp;
     }
 
+    // Enable vision turning
+    if (g_controller0->GetButtonB())
+    {
+        double k_error = m_subsystem->GetLimeHorizontalOffset();
+        double k_pro = 0.05;
+
+        if (k_error <= 8.0)
+            k_pro = 0.095;
+
+        leftY = (k_error * k_pro);
+        rightY = -(k_error * k_pro);
+    }
+    
+
     // motor gain value - used to slow down drive system for new drivers
     // always >= .4 and <= 1.0!!!
     // Turbo mode

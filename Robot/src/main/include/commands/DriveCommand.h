@@ -39,7 +39,7 @@ public:
 private:
     DriveSubsystem* m_subsystem;
 
-// private methods
+    // private methods
 private:
     double SmoothDriveCurve(double joystickYPosition) const;
 };

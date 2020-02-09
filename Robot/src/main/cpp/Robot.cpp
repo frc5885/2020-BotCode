@@ -12,6 +12,7 @@
 
 void Robot::RobotInit() 
 {
+    
 }
 
 /**
@@ -74,6 +75,7 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic() 
 {
+    
 }
 
 /**
