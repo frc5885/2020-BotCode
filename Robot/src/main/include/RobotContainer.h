@@ -11,8 +11,15 @@
 
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
+
 #include "commands/DriveCommand.h"
 #include "subsystems/DriveSubsystem.h"
+
+#include "commands/IntakeWheelsCommand.h"
+#include "subsystems/IntakeWheelsSubsystem.h"
+
+#include "commands/ShooterCommand.h"
+#include "subsystems/ShooterSubsystem.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -30,8 +37,10 @@ public:
 public:
     frc2::Command* GetAutonomousCommand();
     frc2::Command* GetDriveCommand();
+    frc2::Command *GetIntakeWheelsCommand();
+    frc2::Command *GetShooterCommand();
 
-// private properties
+    // private properties
 private:
     // The robot's subsystems and commands are defined here...
     ExampleSubsystem m_exampleSubsystem;
@@ -40,7 +49,13 @@ private:
     DriveSubsystem m_driveSubsystem;
     DriveCommand m_driveCommand;
 
-// private methods
+    IntakeWheelsSubsystem m_intakeWheelsSubsystem;
+    IntakeWheelsCommand m_intakeWheelsCommand;
+
+    ShooterSubsystem m_shooterSubsystem;
+    ShooterCommand m_shooterCommand;
+
+    // private methods
 private:
     void ConfigureButtonBindings();
 };

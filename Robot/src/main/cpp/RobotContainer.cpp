@@ -11,6 +11,8 @@
 RobotContainer::RobotContainer() 
     : m_autonomousCommand(&m_exampleSubsystem) 
     , m_driveCommand(&m_driveSubsystem)
+    , m_intakeWheelsCommand(&m_intakeWheelsSubsystem)
+    , m_shooterCommand(&m_shooterSubsystem)
 {
     // Initialize all of your commands and subsystems here
 
@@ -33,6 +35,17 @@ frc2::Command *RobotContainer::GetDriveCommand()
     return &m_driveCommand;
 }
 
+frc2::Command *RobotContainer::GetIntakeWheelsCommand()
+{
+    // teleop intake command
+    return &m_intakeWheelsCommand;
+}
+
+frc2::Command *RobotContainer::GetShooterCommand()
+{
+    // teleop shooter command
+    return &m_shooterCommand;
+}
 
 // ***** private methods *****
 void RobotContainer::ConfigureButtonBindings() 

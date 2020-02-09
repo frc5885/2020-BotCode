@@ -61,11 +61,18 @@ void Robot::TeleopInit()
     //     m_autonomousCommand = nullptr;
     // }
 
-    m_driveCommand = m_container.GetDriveCommand();
+    // m_driveCommand = m_container.GetDriveCommand();
 
-    if (m_driveCommand != nullptr)
+    // if (m_driveCommand != nullptr)
+    // {
+    //     m_driveCommand->Schedule();
+    // }
+
+    m_testCommand = m_container.GetShooterCommand();
+
+    if (m_testCommand != nullptr)
     {
-        m_driveCommand->Schedule();
+        m_testCommand->Schedule();
     }
 }
 
@@ -76,10 +83,23 @@ void Robot::TeleopPeriodic()
 {
 }
 
+void Robot::TestInit()
+{
+    m_testCommand = m_container.GetShooterCommand();
+
+    if (m_testCommand != nullptr)
+    {
+        m_testCommand->Schedule();
+    }
+}
+
 /**
  * This function is called periodically during test mode.
  */
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic()
+{
+
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

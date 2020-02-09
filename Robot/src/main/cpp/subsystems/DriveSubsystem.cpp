@@ -20,13 +20,15 @@ DriveSubsystem::DriveSubsystem()
 
    // speed controllers
    m_leftController = std::make_shared<frc::SpeedControllerGroup>(*m_leftFrontMotor, *m_leftRearMotor);
-//   AddChild("Left Speed Controller", m_leftController);
-   m_rightController = std::make_shared<frc::SpeedControllerGroup>(*m_rightFrontMotor, *m_rightRearMotor);
-//   AddChild("Right Speed Controller", m_rightController);
+   m_leftFrontMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+   m_leftRearMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 
+   m_rightController = std::make_shared<frc::SpeedControllerGroup>(*m_rightFrontMotor, *m_rightRearMotor);
+   m_rightFrontMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+   m_rightRearMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
+ 
    // differential drive
    m_drive = std::make_shared<frc::DifferentialDrive>(*m_leftController, *m_rightController);
-//   AddChild("Differential Drive", m_drive);
    m_drive->SetSafetyEnabled(true);
    m_drive->SetExpiration(0.1);
    m_drive->SetMaxOutput(1.0);

@@ -22,14 +22,19 @@ public:
     void AutonomousPeriodic() override;
     void TeleopInit() override;
     void TeleopPeriodic() override;
+    void TestInit() override;
     void TestPeriodic() override;
 
- private:
+private:
     // Have it null by default so that if testing teleop it
     // doesn't have undefined behavior and potentially crash.
     frc2::Command* m_autonomousCommand = nullptr;
 
     // teleop command for tank drive
     frc2::Command *m_driveCommand = nullptr;
+
+    // command to be tested
+    frc2::Command *m_testCommand = nullptr;
+
     RobotContainer m_container;
 };

@@ -30,7 +30,7 @@ void DriveCommand::Execute()
     // get raw joystick values and +- sign
     //this pulls the joystick values into the program.
     //(gets the state) gets what you want to do
-    float leftX = -g_controller0->GetLeftY();
+    float leftX =  -g_controller0->GetLeftY();
     float rightX = g_controller0->GetRightY();
 
     //if the joystick values are almost the same, make them the same to make driving straight easier.
@@ -46,7 +46,7 @@ void DriveCommand::Execute()
     float leftY = SignOf(leftX) * SmoothDriveCurve(fabs(leftX));
     float rightY = SignOf(rightX) * SmoothDriveCurve(fabs(rightX));
 
-    if (g_controller0->GetButtonA()) // Invert drive code
+    if (g_controller0->GetLeftBumper()) // Invert drive code
     {
         float temp = leftY;
         leftY = rightY;
@@ -58,7 +58,7 @@ void DriveCommand::Execute()
     // Turbo mode
     double gain = (g_controller0->GetRightTrig() > 0.2 ? 1.0 : 0.6);
 
-    printf("left motor = %3.2f right motor = %3.2f\n", gain*leftY, gain*rightY);
+    //printf("left motor = %3.2f right motor = %3.2f\n", gain*leftY, gain*rightY);
 
     m_subsystem->SetLeftSpeed(gain * leftY);
     m_subsystem->SetRightSpeed(gain * rightY);
