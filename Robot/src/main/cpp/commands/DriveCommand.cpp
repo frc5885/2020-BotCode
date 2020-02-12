@@ -57,13 +57,17 @@ void DriveCommand::Execute()
     if (g_controller0->GetButtonB())
     {
         double k_error = m_subsystem->GetLimeHorizontalOffset();
-        double k_pro = 0.05;
 
-        if (k_error <= 8.0)
-            k_pro = 0.095;
+        double k_sign = k_error >= 0 ? 1.0 : -1.0;
+        double k_pro = k_sign * (-(1.0 / 108.0) * k_error + 0.583);
 
-        leftY = (k_error * k_pro);
-        rightY = -(k_error * k_pro);
+        // if (abs(k_error) <= 0.8)
+        //     k_pro = 0;
+
+        printf("k_pro: %0.4f\t k_error: %3.4f", k_pro, k_error);
+
+        leftY = (k_pro);
+        rightY = -(k_pro);
     }
     
 
