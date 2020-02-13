@@ -56,18 +56,33 @@ void DriveCommand::Execute()
     // Enable vision turning
     if (g_controller0->GetButtonB())
     {
+        // Error as target approaches 0
         double k_error = m_subsystem->GetLimeHorizontalOffset();
+        
+        // As the bot approaches the target, the motor power will get lower.
+        // The error max is -27/27 and the min is 0.
+        // Make sure the motor output for both min/max are high
+        // enough as low motor power will make them not turn.
+        
+        // Motor output at min error
+        double k_min_pow = 0.583;
+        
+        // Motor output at max error
+        double k_max_pow = 0.833;
 
+        // Sign (+/-) of the error
         double k_sign = k_error >= 0 ? 1.0 : -1.0;
-        double k_pro = k_sign * (-(1.0 / 108.0) * k_error + 0.583);
+        
+        // Calculate the output (Desmos: https://www.desmos.com/calculator/mxfs6w0vzx)
+        double k_output = k_sign * (((k_min_pow-k_max_pow)/(-27)) * abs(k_error) + k_min_pow);
 
         // if (abs(k_error) <= 0.8)
         //     k_pro = 0;
 
         printf("k_pro: %0.4f\t k_error: %3.4f", k_pro, k_error);
 
-        leftY = (k_pro);
-        rightY = -(k_pro);
+        leftY = (k_output);
+        rightY = -(k_output);
     }
     
 
