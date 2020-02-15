@@ -31,9 +31,10 @@ enum
     LR_CAN_ID = 6,
     RF_CAN_ID = 3,
     RR_CAN_ID = 4,
-    INTAKE_WHEELS_CAN_ID = 11,
+    INTAKE_WHEELS_CAN_ID = 11,  // ???
     TOP_SHOOTER_TOP_CAN_ID = 8,
-    BOTTOM_SHOOTER_CAN_ID = 7
+    BOTTOM_SHOOTER_CAN_ID = 7,
+    CLIMB_CAN_ID = 10   // ???
 };
 
 enum
