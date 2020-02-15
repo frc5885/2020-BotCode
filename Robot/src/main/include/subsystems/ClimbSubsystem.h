@@ -26,7 +26,8 @@ public:
  private:
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
-     std::shared_ptr<WPI_TalonSRX> m_motor;
+     std::shared_ptr<WPI_TalonSRX> m_motor_one;
+     std::shared_ptr<WPI_TalonSRX> m_motor_two;
 
      //motor speed (-1 -> 1)
      double m_motorSpeed;

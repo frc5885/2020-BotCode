@@ -9,7 +9,7 @@
 #include "subsystems/IntakeSubsystem.h"
 
 IntakeSubsystem::IntakeSubsystem()
-    : m_motorSpeed(0.0), m_motorDirection(0), m_pivotSpeed(0.0)
+    : m_pivotSpeed(0.0), m_motorSpeed(0.0), m_motorDirection(0)
 {
    // motor controller
    m_motor = std::make_shared<WPI_TalonSRX>(INTAKE_WHEELS_CAN_ID);
