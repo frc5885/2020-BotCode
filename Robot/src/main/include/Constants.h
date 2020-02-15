@@ -31,10 +31,15 @@ enum
     LR_CAN_ID = 6,
     RF_CAN_ID = 3,
     RR_CAN_ID = 4,
-    INTAKE_WHEELS_CAN_ID = 11,
-    INTAKE_PIVOT_CAN_ID = 120, // *** TO-DO ***
+    INTAKE_WHEELS_CAN_ID = 13,
+    INTAKE_PIVOT_CAN_ID = 10, // *** TO-DO ***
     TOP_SHOOTER_TOP_CAN_ID = 8,
     BOTTOM_SHOOTER_CAN_ID = 7,
+    TOP_CONVEYOR_CAN_ID = 9,
+    LOW_BELT_CAN_ID = 12,
+    CLIMB_ONE_CAN_ID = 11,
+    CLIMB_TWO_CAN_ID = 14,
+
 };
 
 enum

@@ -26,17 +26,24 @@ void IntakeCommand::Execute()
     // speed is set from right trigger on controller 1
     // direction is set from Y(forward) or B(reverse) buttons on controller 1
     g_controller1->GetState();
- 
-    m_subsystem->SetSpeed(g_controller1->GetRightTrig());
 
-    if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_Y))
-    {
-        m_subsystem->SetDirection(DIRECTION_FWD);
-    }
-    else if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_B))
-    {
-        m_subsystem->SetDirection(DIRECTION_REV);
-    }
+    bool bumper_state = g_controller1->m_controller.GetRawButtonPressed(BUMPER_RIGHT);
+
+    if (bumper_state)
+        m_subsystem->SetPivotSpeed(0.5);
+    else
+        m_subsystem->SetPivotSpeed(-0.5);
+
+    // m_subsystem->SetSpeed(g_controller1->GetRightTrig());
+
+    // if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_Y))
+    // {
+    //     m_subsystem->SetDirection(DIRECTION_FWD);
+    // }
+    // else if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_B))
+    // {
+    //     m_subsystem->SetDirection(DIRECTION_REV);
+    // }
 }
 
 // Make this return true when this Command no longer needs to run execute()

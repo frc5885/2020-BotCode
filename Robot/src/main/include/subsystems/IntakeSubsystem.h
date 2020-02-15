@@ -21,7 +21,7 @@ public:
     void SetDirection(int direction);
 
     // Toggle intake pivot
-    void TogglePivot();
+    void SetPivotSpeed(double pivotSpeed);
 
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;
@@ -33,10 +33,10 @@ public:
      std::shared_ptr<WPI_TalonSRX> m_motor;
      std::shared_ptr<WPI_TalonSRX> m_pivot_motor;
 
-    // Pivot up (true/false)
-     bool m_pivotUp;
+    // Pivot speed (-1 <=> 1)
+     double m_pivotSpeed;
 
-    // motor speed (-1 -> 1)
+     // motor speed (-1 -> 1)
      double m_motorSpeed;
 
     // motor direction (-1 or 1)

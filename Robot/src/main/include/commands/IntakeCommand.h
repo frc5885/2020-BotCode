@@ -30,4 +30,6 @@ public:
 
 private:
     IntakeSubsystem* m_subsystem;
+
+    frc2::Timer m_pivotTimer;
 };
