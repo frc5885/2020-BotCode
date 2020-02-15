@@ -53,6 +53,40 @@ void DriveCommand::Execute()
         rightY = temp;
     }
 
+    // Enable vision assisted targeting
+    // B button on main controller
+    if (g_controller0->GetButtonB())
+    {
+        // Error as target approaches 0
+        double k_error = m_subsystem->GetLimeHorizontalOffset();
+        
+        // As the bot approaches the target, the motor power will get lower.
+        // The error max is -27/27 and the min is 0.
+        // Make sure the motor output for both min/max are high
+        // enough as low motor power will make them not turn.
+        
+        // Motor output at min error
+        double k_min_pow = 0.52 ;
+        
+        // Motor output at max error
+        double k_max_pow = 0.833;
+
+        // Sign (+/-) of the error
+        double k_sign = k_error >= 0 ? 1.0 : -1.0;
+        
+        // Calculate the output (Desmos: https://www.desmos.com/calculator/mxfs6w0vzx)
+        double k_output = k_sign * (((k_min_pow-k_max_pow)/(-27.0)) * fabs(k_error) + k_min_pow);
+
+        // Stop the motors when we are within 0.5 degrees.
+        if (fabs(k_error) <= 0.5)
+            k_output = 0;
+
+
+        leftY = (k_output);
+        rightY = -(k_output);
+    }
+    
+
     // motor gain value - used to slow down drive system for new drivers
     // always >= .4 and <= 1.0!!!
     // Turbo mode
