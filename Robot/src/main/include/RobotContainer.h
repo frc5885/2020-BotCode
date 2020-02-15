@@ -15,8 +15,8 @@
 #include "commands/DriveCommand.h"
 #include "subsystems/DriveSubsystem.h"
 
-#include "commands/IntakeWheelsCommand.h"
-#include "subsystems/IntakeWheelsSubsystem.h"
+#include "commands/IntakeCommand.h"
+#include "subsystems/IntakeSubsystem.h"
 
 #include "commands/ShooterCommand.h"
 #include "subsystems/ShooterSubsystem.h"
@@ -37,7 +37,7 @@ public:
 public:
     frc2::Command* GetAutonomousCommand();
     frc2::Command* GetDriveCommand();
-    frc2::Command *GetIntakeWheelsCommand();
+    frc2::Command *GetIntakeCommand();
     frc2::Command *GetShooterCommand();
 
     // private properties
@@ -49,8 +49,8 @@ private:
     DriveSubsystem m_driveSubsystem;
     DriveCommand m_driveCommand;
 
-    IntakeWheelsSubsystem m_intakeWheelsSubsystem;
-    IntakeWheelsCommand m_intakeWheelsCommand;
+    IntakeSubsystem m_intakeSubsystem;
+    IntakeCommand m_intakeCommand;
 
     ShooterSubsystem m_shooterSubsystem;
     ShooterCommand m_shooterCommand;

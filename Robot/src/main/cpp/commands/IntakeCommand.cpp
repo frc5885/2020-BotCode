@@ -7,21 +7,21 @@
 
 #include "Constants.h"
 #include "ControllerState.h"
-#include "commands/IntakeWheelsCommand.h"
+#include "commands/IntakeCommand.h"
 
-IntakeWheelsCommand::IntakeWheelsCommand(IntakeWheelsSubsystem* subsystem)
+IntakeCommand::IntakeCommand(IntakeSubsystem* subsystem)
     : m_subsystem{subsystem} {}
 
 
 // ***** public methods *****
 
 // Called just before this Command runs the first time
-void IntakeWheelsCommand::Initialize()
+void IntakeCommand::Initialize()
 {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakeWheelsCommand::Execute()
+void IntakeCommand::Execute()
 {
     // speed is set from right trigger on controller 1
     // direction is set from Y(forward) or B(reverse) buttons on controller 1
@@ -40,7 +40,7 @@ void IntakeWheelsCommand::Execute()
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool IntakeWheelsCommand::IsFinished()
+bool IntakeCommand::IsFinished()
 {
     return false;
 }
