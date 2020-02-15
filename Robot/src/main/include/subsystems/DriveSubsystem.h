@@ -9,7 +9,9 @@
 #include "ctre/Phoenix.h"
 #include "frc/SpeedControllerGroup.h"
 #include "frc/drive/DifferentialDrive.h"
+#include "Definitions.h"
 #include <frc2/command/SubsystemBase.h>
+#include <networktables/NetworkTableInstance.h>
 
 class DriveSubsystem : public frc2::SubsystemBase 
 {
@@ -24,9 +26,17 @@ public:
 
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;
+    
+    // Limelight Gets
+    double GetLimeHorizontalOffset();
+    double GetLimeVerticalOffset();
+    bool GetLimeVisibleTarget();
+    
+    // Limelight Sets
+    void setLimeLedMode(LedMode);
 
-// properties
- private:
+    // properties
+private:
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
      std::shared_ptr<WPI_TalonSRX> m_leftFrontMotor;
@@ -36,6 +46,9 @@ public:
      std::shared_ptr<WPI_TalonSRX> m_rightRearMotor;
      std::shared_ptr<frc::SpeedControllerGroup> m_rightController;
      std::shared_ptr<frc::DifferentialDrive> m_drive;
+
+     // Limelight Network Table
+     std::shared_ptr<nt::NetworkTable> nt_limelight;
 
      // left / right motor speeds (-1 -> 1)
      double m_leftSpeed, m_rightSpeed;

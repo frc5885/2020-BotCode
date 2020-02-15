@@ -94,4 +94,12 @@ enum RobotSide
 	RIGHT
 };
 
+enum LedMode
+{
+    DEFAULT,
+    OFF,
+    BLINK,
+    ON
+};
+
 extern bool Equals (double value1, double value2, double tolerance);

@@ -6,19 +6,22 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Constants.h"
-#include "subsystems/IntakeWheelsSubsystem.h"
+#include "subsystems/IntakeSubsystem.h"
 
-IntakeWheelsSubsystem::IntakeWheelsSubsystem()
-    : m_motorSpeed(0.0)
-    , m_motorDirection(0)
+IntakeSubsystem::IntakeSubsystem()
+    : m_motorSpeed(0.0), m_motorDirection(0), m_pivotUp(true)
 {
    // motor controller
    m_motor = std::make_shared<WPI_TalonSRX>(INTAKE_WHEELS_CAN_ID);
    m_motor->SetSafetyEnabled(true);
    m_motor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+
+   m_pivot_motor = std::make_shared<WPI_TalonSRX>(INTAKE_PIVOT_CAN_ID);
+   m_pivot_motor->SetSafetyEnabled(true);
+   m_pivot_motor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
-void IntakeWheelsSubsystem::SetSpeed(double motorSpeed)
+void IntakeSubsystem::SetSpeed(double motorSpeed)
 {
     if (motorSpeed > 1.0)
     {
@@ -33,12 +36,12 @@ void IntakeWheelsSubsystem::SetSpeed(double motorSpeed)
     m_motorSpeed = motorSpeed;
 }
 
-void IntakeWheelsSubsystem::SetDirection(int direction)
+void IntakeSubsystem::SetDirection(int direction)
 {
     m_motorDirection = (direction >= 0) ? 1 : -1;
 }
 
-void IntakeWheelsSubsystem::Periodic()
+void IntakeSubsystem::Periodic()
 {
     m_motor->Set(m_motorSpeed * m_motorDirection);
 }

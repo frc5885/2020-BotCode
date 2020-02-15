@@ -32,6 +32,9 @@ DriveSubsystem::DriveSubsystem()
    m_drive->SetSafetyEnabled(true);
    m_drive->SetExpiration(0.1);
    m_drive->SetMaxOutput(1.0);
+
+   // Init Limelight NetworkTable
+   nt_limelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 }
 
 void DriveSubsystem::SetLeftSpeed(double motorSpeed)
@@ -68,4 +71,37 @@ void DriveSubsystem::Periodic()
 {
 //    printf("left speed = %3.2f right speed = %3.2f\n", m_leftSpeed, m_rightSpeed);
     m_drive->TankDrive(m_leftSpeed, m_rightSpeed);
+}
+
+
+/////////////////
+/// Limelight ///
+/////////////////
+
+////////////
+/// GETS ///
+////////////
+
+double DriveSubsystem::GetLimeVerticalOffset()
+{
+    return nt_limelight->GetEntry("ty").GetDouble(0);
+}
+
+double DriveSubsystem::GetLimeHorizontalOffset()
+{
+    return nt_limelight->GetEntry("tx").GetDouble(0);
+}
+
+bool DriveSubsystem::GetLimeVisibleTarget()
+{
+    return nt_limelight->GetEntry("tv").GetBoolean(0);
+}
+
+////////////
+/// SETS ///
+////////////
+
+void DriveSubsystem::setLimeLedMode(LedMode ledMode)
+{
+    nt_limelight->PutNumber("ledMode", ledMode);
 }

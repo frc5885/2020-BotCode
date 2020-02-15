@@ -9,16 +9,19 @@
 #include "ctre/Phoenix.h"
 #include <frc2/command/SubsystemBase.h>
 
-class IntakeWheelsSubsystem : public frc2::SubsystemBase 
+class IntakeSubsystem : public frc2::SubsystemBase 
 {
 public:
-    IntakeWheelsSubsystem();
+    IntakeSubsystem();
 
 // public methods
 public:
     // Set motor speed and direction
     void SetSpeed(double motorSpeed);
     void SetDirection(int direction);
+
+    // Toggle intake pivot
+    void TogglePivot();
 
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;
@@ -28,10 +31,14 @@ public:
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
      std::shared_ptr<WPI_TalonSRX> m_motor;
+     std::shared_ptr<WPI_TalonSRX> m_pivot_motor;
 
-     //motor speed (-1 -> 1)
+    // Pivot up (true/false)
+     bool m_pivotUp;
+
+    // motor speed (-1 -> 1)
      double m_motorSpeed;
 
     // motor direction (-1 or 1)
-    int m_motorDirection;
+     int m_motorDirection;
 };
