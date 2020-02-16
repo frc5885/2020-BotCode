@@ -24,6 +24,12 @@
 #include "commands/ColorWheelCommand.h"
 #include "subsystems/ColorWheelSubsystem.h"
 
+#include "commands/ConveyerCommand.h"
+#include "subsystems/ConveyerSubsystem.h"
+
+#include "commands/ClimbCommand.h"
+#include "subsystems/ClimbSubsystem.h"
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -43,6 +49,8 @@ public:
     frc2::Command *GetIntakeCommand();
     frc2::Command *GetShooterCommand();
     frc2::Command *GetColorWheelCommand();
+    frc2::Command *GetConveyerCommand();
+    frc2::Command *GetClimbCommand();
 
     // private properties
 private:
@@ -61,6 +69,12 @@ private:
 
     ColorWheelSubsystem m_colorWheelSubsystem;
     ColorWheelCommand m_colorWheelCommand;
+
+    ConveyerSubsystem m_conveyerSubsystem;
+    ConveyerCommand m_conveyerCommand;
+
+    ClimbSubsystem m_climbSubsystem;
+    ClimbCommand m_climbCommand;
 
     // private methods
 private:

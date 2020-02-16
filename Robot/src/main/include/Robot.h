@@ -37,6 +37,9 @@ private:
 
     // command to be tested
     frc2::Command *m_testCommand = nullptr;
+    frc2::Command *m_testCommandTwo = nullptr;
+    frc2::Command *m_testCommandThree = nullptr;
+    frc2::Command *m_testCommandFour = nullptr;
 
     RobotContainer m_container;
 };

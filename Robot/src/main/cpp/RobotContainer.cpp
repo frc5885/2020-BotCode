@@ -14,6 +14,8 @@ RobotContainer::RobotContainer()
     , m_intakeCommand(&m_intakeSubsystem)
     , m_shooterCommand(&m_shooterSubsystem)
     , m_colorWheelCommand(&m_colorWheelSubsystem)
+    , m_conveyerCommand(&m_conveyerSubsystem)
+    , m_climbCommand(&m_climbSubsystem)
 {
     // Initialize all of your commands and subsystems here
 
@@ -52,6 +54,18 @@ frc2::Command *RobotContainer::GetColorWheelCommand()
 {
     // teleop color wheel command
     return &m_colorWheelCommand;
+}
+
+frc2::Command *RobotContainer::GetConveyerCommand()
+{
+    // teleop conveyer command
+    return &m_conveyerCommand;
+}
+
+frc2::Command *RobotContainer::GetClimbCommand()
+{
+    // teleop climb command
+    return &m_climbCommand;
 }
 
 // ***** private methods *****
