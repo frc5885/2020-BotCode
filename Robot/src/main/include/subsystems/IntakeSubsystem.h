@@ -17,11 +17,11 @@ public:
 // public methods
 public:
     // Set motor speed and direction
-    void SetSpeed(double motorSpeed);
-    void SetDirection(int direction);
+    void SetWheelSpeed(double speed);
+    void SetWheelDirection(int direction);
 
     // Toggle intake pivot
-    void SetPivotSpeed(double pivotSpeed);
+    void SetPivotSpeed(double speed);
 
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;
@@ -30,15 +30,15 @@ public:
  private:
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
-     std::shared_ptr<WPI_TalonSRX> m_motor;
-     std::shared_ptr<WPI_TalonSRX> m_pivot_motor;
+     std::shared_ptr<WPI_TalonSRX> m_wheelMotor;
+     std::shared_ptr<WPI_TalonSRX> m_pivotMotor;
 
     // Pivot speed (-1 <=> 1)
      double m_pivotSpeed;
 
-     // motor speed (-1 -> 1)
-     double m_motorSpeed;
+     // wheel motor speed (-1 -> 1)
+     double m_wheelSpeed;
 
-    // motor direction (-1 or 1)
-     int m_motorDirection;
+    // wheel motor direction (-1 or 1)
+     int m_wheelDirection;
 };
