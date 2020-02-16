@@ -66,7 +66,7 @@ void DriveCommand::Execute()
         // enough as low motor power will make them not turn.
         
         // Motor output at min error
-        double k_min_pow = 0.52 ;
+        double k_min_pow = 0.475;
         
         // Motor output at max error
         double k_max_pow = 0.833;
