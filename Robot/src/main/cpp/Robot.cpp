@@ -62,11 +62,11 @@ void Robot::TeleopInit()
     //     m_autonomousCommand = nullptr;
     // }
 
-    m_driveCommand = m_container.GetDriveCommand();
+    m_testCommand = m_container.GetIntakeCommand();
 
-    if (m_driveCommand != nullptr)
+    if (m_testCommand != nullptr)
     {
-        m_driveCommand->Schedule();
+        m_testCommand->Schedule();
     }
 
     // m_testCommand = m_container.GetShooterCommand();
@@ -87,12 +87,12 @@ void Robot::TeleopPeriodic()
 
 void Robot::TestInit()
 {
-    m_testCommand = m_container.GetShooterCommand();
+    // m_testCommand = m_container.GetShooterCommand();
 
-    if (m_testCommand != nullptr)
-    {
-        m_testCommand->Schedule();
-    }
+    // if (m_testCommand != nullptr)
+    // {
+    //     m_testCommand->Schedule();
+    // }
 }
 
 /**
