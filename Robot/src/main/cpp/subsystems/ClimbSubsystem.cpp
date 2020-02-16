@@ -12,13 +12,13 @@ ClimbSubsystem::ClimbSubsystem()
     : m_motorSpeed(0.0)
 {
    // motor controller
-   m_motor_one = std::make_shared<WPI_TalonSRX>(CLIMB_ONE_CAN_ID);
-   m_motor_one->SetSafetyEnabled(true);
-   m_motor_one->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+   m_motorOne = std::make_shared<WPI_TalonSRX>(CLIMB_ONE_CAN_ID);
+   m_motorOne->SetSafetyEnabled(true);
+   m_motorOne->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 
-   m_motor_two = std::make_shared<WPI_TalonSRX>(CLIMB_TWO_CAN_ID);
-   m_motor_two->SetSafetyEnabled(true);
-   m_motor_two->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+   m_motorTwo = std::make_shared<WPI_TalonSRX>(CLIMB_TWO_CAN_ID);
+   m_motorTwo->SetSafetyEnabled(true);
+   m_motorTwo->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
 void ClimbSubsystem::SetSpeed(double motorSpeed)
@@ -43,6 +43,6 @@ void ClimbSubsystem::SetSpeed(double motorSpeed)
 
 void ClimbSubsystem::Periodic()
 {
-    m_motor_one->Set(m_motorSpeed);
-    m_motor_two->Set(m_motorSpeed);
+    m_motorOne->Set(m_motorSpeed);
+    m_motorTwo->Set(m_motorSpeed);
 }
