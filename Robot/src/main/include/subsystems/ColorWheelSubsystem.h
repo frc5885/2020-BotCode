@@ -9,12 +9,12 @@
 #include "ctre/Phoenix.h"
 #include <frc2/command/SubsystemBase.h>
 
-class ClimbSubsystem : public frc2::SubsystemBase 
+class ColorWheelSubsystem : public frc2::SubsystemBase
 {
 public:
-    ClimbSubsystem();
+    ColorWheelSubsystem();
 
-// public methods
+    // public methods
 public:
     // Set motor speed and direction
     void SetSpeed(double motorSpeed);
@@ -22,13 +22,12 @@ public:
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;
 
-// properties
- private:
+    // properties
+private:
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.
-     std::shared_ptr<WPI_TalonSRX> m_motorOne;
-     std::shared_ptr<WPI_TalonSRX> m_motorTwo;
-
-     //motor speed (-1 -> 1)
-     double m_motorSpeed;
+    std::shared_ptr<WPI_TalonSRX> m_motor;
+    
+    //motor speed (-1 -> 1)
+    double m_motorSpeed;
 };

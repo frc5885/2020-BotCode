@@ -6,22 +6,18 @@
 /*----------------------------------------------------------------------------*/
 
 #include "Constants.h"
-#include "subsystems/ClimbSubsystem.h"
+#include "subsystems/ColorWheelSubsystem.h"
 
-ClimbSubsystem::ClimbSubsystem()
+ColorWheelSubsystem::ColorWheelSubsystem()
     : m_motorSpeed(0.0)
 {
-   // motor controller
-   m_motorOne = std::make_shared<WPI_TalonSRX>(CLIMB_ONE_CAN_ID);
-   m_motorOne->SetSafetyEnabled(true);
-   m_motorOne->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
-
-   m_motorTwo = std::make_shared<WPI_TalonSRX>(CLIMB_TWO_CAN_ID);
-   m_motorTwo->SetSafetyEnabled(true);
-   m_motorTwo->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+    // motor controller
+    m_motor = std::make_shared<WPI_TalonSRX>(CLIMB_ONE_CAN_ID);
+    m_motor ->SetSafetyEnabled(true);
+    m_motor ->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
-void ClimbSubsystem::SetSpeed(double motorSpeed)
+void ColorWheelSubsystem::SetSpeed(double motorSpeed)
 {
     if (motorSpeed > 1.0)
     {
@@ -41,8 +37,7 @@ void ClimbSubsystem::SetSpeed(double motorSpeed)
     m_motorSpeed = motorSpeed;
 }
 
-void ClimbSubsystem::Periodic()
+void ColorWheelSubsystem::Periodic()
 {
-    m_motorOne->Set(m_motorSpeed);
-    m_motorTwo->Set(m_motorSpeed);
+    m_motor->Set(m_motorSpeed);
 }

@@ -21,6 +21,9 @@
 #include "commands/ShooterCommand.h"
 #include "subsystems/ShooterSubsystem.h"
 
+#include "commands/ColorWheelCommand.h"
+#include "subsystems/ColorWheelSubsystem.h"
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -39,6 +42,7 @@ public:
     frc2::Command* GetDriveCommand();
     frc2::Command *GetIntakeCommand();
     frc2::Command *GetShooterCommand();
+    frc2::Command *GetColorWheelCommand();
 
     // private properties
 private:
@@ -54,6 +58,9 @@ private:
 
     ShooterSubsystem m_shooterSubsystem;
     ShooterCommand m_shooterCommand;
+
+    ColorWheelSubsystem m_colorWheelSubsystem;
+    ColorWheelCommand m_colorWheelCommand;
 
     // private methods
 private:

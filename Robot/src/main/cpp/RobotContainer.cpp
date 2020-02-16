@@ -13,6 +13,7 @@ RobotContainer::RobotContainer()
     , m_driveCommand(&m_driveSubsystem)
     , m_intakeCommand(&m_intakeSubsystem)
     , m_shooterCommand(&m_shooterSubsystem)
+    , m_colorWheelCommand(&m_colorWheelSubsystem)
 {
     // Initialize all of your commands and subsystems here
 
@@ -45,6 +46,12 @@ frc2::Command *RobotContainer::GetShooterCommand()
 {
     // teleop shooter command
     return &m_shooterCommand;
+}
+
+frc2::Command *RobotContainer::GetColorWheelCommand()
+{
+    // teleop color wheel command
+    return &m_colorWheelCommand;
 }
 
 // ***** private methods *****

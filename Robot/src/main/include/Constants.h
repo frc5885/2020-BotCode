@@ -39,6 +39,7 @@ enum
     LOW_BELT_CAN_ID = 12,
     CLIMB_ONE_CAN_ID = 11,
     CLIMB_TWO_CAN_ID = 14,
+    COLOR_WHEEL_CAN_ID = 15
 };
 
 enum
