@@ -34,12 +34,12 @@ private:
     bool m_pivotDownTimerStarted, m_pivotUpTimerStarted;
 
     // pivot constants
-    static constexpr double m_kPivotUpMotorSpeed = 0.8;     // -1 -> 1
-    static constexpr double m_kPivotDownMotorSpeed = -0.25;  // -1 -> 1
+    static constexpr double m_kPivotUpMotorSpeed = 0.6;     // -1 -> 1
+    static constexpr double m_kPivotDownMotorSpeed = -0.15;  // -1 -> 1
     static constexpr units::time::second_t m_kPivotTimerDownTime = 1.0_s;    // seconds
     static constexpr units::time::second_t m_kPivotTimerUpTime = 1.0_s;      // seconds
 
     // intake wheels constants
-    static constexpr double m_kForwardWheelSpeed = .5; // 0 -> 1
-    static constexpr double m_kReverseWheelSpeed = .5; // 0 -> 1
+    static constexpr double m_kForwardWheelSpeed = .35; // 0 -> 1
+    static constexpr double m_kReverseWheelSpeed = -.35;  // 0 -> 1
 };

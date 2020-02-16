@@ -25,7 +25,7 @@ void ClimbCommand::Execute()
 {
     // speed is set from right joystick Y on controller 1
     g_controller1->GetState();
- 
+
     m_subsystem->SetSpeed(g_controller1->GetRightY());
 }
 

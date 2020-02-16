@@ -33,11 +33,11 @@ void IntakeCommand::Execute()
     // set wheel direction based on X or A button being pressed
     bool wheelsFwd = false;
 
-    if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_X))
+    if (g_controller1->m_controller.GetRawButton(BUTTON_X))
     {
         wheelsFwd = true;
     }
-    else if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_A))
+    else if (g_controller1->m_controller.GetRawButton(BUTTON_A))
     {
         wheelsFwd = false;
     }
@@ -82,6 +82,7 @@ void IntakeCommand::Execute()
     }
     else
     {
+        m_subsystem->SetWheelSpeed(0.0);
         printf("Marker 4\n");
         // if the button was previously pressed...
         if (m_pivotDownTimerStarted)
