@@ -9,16 +9,18 @@
 #include "subsystems/IntakeSubsystem.h"
 
 IntakeSubsystem::IntakeSubsystem()
-    : m_pivotSpeed(0.0), m_motorSpeed(0.0), m_motorDirection(0)
+    : m_pivotSpeed(0.0)
+    , m_wheelSpeed(0.0)
+    , m_wheelDirection(0)
 {
    // motor controller
-   m_motor = std::make_shared<WPI_TalonSRX>(INTAKE_WHEELS_CAN_ID);
-   m_motor->SetSafetyEnabled(true);
-   m_motor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+   m_wheelMotor = std::make_shared<WPI_TalonSRX>(INTAKE_WHEELS_CAN_ID);
+   m_wheelMotor->SetSafetyEnabled(true);
+   m_wheelMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 
-   m_pivot_motor = std::make_shared<WPI_TalonSRX>(INTAKE_PIVOT_CAN_ID);
-   m_pivot_motor->SetSafetyEnabled(true);
-   m_pivot_motor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+   m_pivotMotor = std::make_shared<WPI_TalonSRX>(INTAKE_PIVOT_CAN_ID);
+   m_pivotMotor->SetSafetyEnabled(true);
+   m_pivotMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
 void IntakeSubsystem::SetPivotSpeed(double pivotSpeed)
@@ -36,28 +38,28 @@ void IntakeSubsystem::SetPivotSpeed(double pivotSpeed)
     m_pivotSpeed = pivotSpeed;
 }
 
-void IntakeSubsystem::SetSpeed(double motorSpeed)
+void IntakeSubsystem::SetWheelSpeed(double speed)
 {
-    if (motorSpeed > 1.0)
+    if (speed > 1.0)
     {
-        motorSpeed = 1.0;
+        speed = 1.0;
     }
 
-    if (motorSpeed < -1.0)
+    if (speed < -1.0)
     {
-        motorSpeed = -1.0;
+        speed = -1.0;
     }
 
-    m_motorSpeed = motorSpeed;
+    m_wheelSpeed = speed;
 }
 
-void IntakeSubsystem::SetDirection(int direction)
+void IntakeSubsystem::SetWheelDirection(int direction)
 {
-    m_motorDirection = (direction >= 0) ? 1 : -1;
+    m_wheelDirection = (direction >= 0) ? 1 : -1;
 }
 
 void IntakeSubsystem::Periodic()
 {
-    m_motor->Set(m_motorSpeed * m_motorDirection);
-    m_pivot_motor->Set(m_pivotSpeed);
+    m_wheelMotor->Set(m_wheelSpeed * m_wheelDirection);
+    m_pivotMotor->Set(m_pivotSpeed);
 }

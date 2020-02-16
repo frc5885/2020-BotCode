@@ -23,8 +23,7 @@ void ClimbCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ClimbCommand::Execute()
 {
-    // speed is set from right trigger on controller 1
-    // direction is set from Y(forward) or B(reverse) buttons on controller 1
+    // speed is set from right joystick Y on controller 1
     g_controller1->GetState();
  
     m_subsystem->SetSpeed(g_controller1->GetRightY());
