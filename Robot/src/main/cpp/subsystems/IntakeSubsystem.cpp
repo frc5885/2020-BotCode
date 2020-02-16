@@ -53,13 +53,8 @@ void IntakeSubsystem::SetWheelSpeed(double speed)
     m_wheelSpeed = speed;
 }
 
-void IntakeSubsystem::SetWheelDirection(int direction)
-{
-    m_wheelDirection = (direction >= 0) ? 1 : -1;
-}
-
 void IntakeSubsystem::Periodic()
 {
-    m_wheelMotor->Set(m_wheelSpeed * m_wheelDirection);
+    m_wheelMotor->Set(m_wheelSpeed);
     m_pivotMotor->Set(m_pivotSpeed);
 }

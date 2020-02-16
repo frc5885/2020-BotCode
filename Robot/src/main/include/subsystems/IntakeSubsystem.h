@@ -18,7 +18,6 @@ public:
 public:
     // Set motor speed and direction
     void SetWheelSpeed(double speed);
-    void SetWheelDirection(int direction);
 
     // Toggle intake pivot
     void SetPivotSpeed(double speed);

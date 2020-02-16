@@ -9,11 +9,10 @@
 #include "ControllerState.h"
 #include "commands/IntakeCommand.h"
 
-IntakeCommand::IntakeCommand(IntakeSubsystem* subsystem)
-    : m_pivotDownTimerStarted(false)
-    , m_pivotUpTimerStarted(false)
-    , m_subsystem{subsystem} {}
-
+IntakeCommand::IntakeCommand(IntakeSubsystem *subsystem)
+    : m_subsystem{subsystem},
+      m_pivotDownTimerStarted(false),
+      m_pivotUpTimerStarted(false) {}
 
 // ***** public methods *****
 
@@ -36,27 +35,28 @@ void IntakeCommand::Execute()
 
     if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_X))
     {
-        m_subsystem->SetWheelDirection(1);
         wheelsFwd = true;
     }
     else if (g_controller1->m_controller.GetRawButtonPressed(BUTTON_A))
     {
-        m_subsystem->SetWheelDirection(-1);
         wheelsFwd = false;
     }
 
-    // turn on the intake wheels and pivot the intake
-    bool bumperPressed = g_controller1->m_controller.GetRawButtonPressed(BUMPER_RIGHT);
+    printf("%3.4f", static_cast<double>(m_pivotTimer.Get()));
+    printf("%d", (int)g_controller1->m_controller.GetRawButton(BUMPER_RIGHT));
 
+    // turn on the intake wheels and pivot the intake
     // if we want to run the intake wheels...
-    if (bumperPressed)
+    if (g_controller1->m_controller.GetRawButton(BUMPER_RIGHT))
     {
+        printf("Marker 1\n");
         // turn on intake wheels
         double speed = (wheelsFwd) ? m_kForwardWheelSpeed : m_kReverseWheelSpeed;
         m_subsystem->SetWheelSpeed(speed);
 
         if (!m_pivotDownTimerStarted)
         {
+            printf("Marker 2\n");
             // start the timer
             m_pivotTimer.Reset();
             m_pivotTimer.Start();
@@ -66,42 +66,50 @@ void IntakeCommand::Execute()
         // lower pivot
         if (m_pivotDownTimerStarted)
         {
+            printf("Marker 3\n");
             if (m_pivotTimer.Get() < m_kPivotTimerDownTime)
             {
+                printf("Marker 3-1\n");
                 // run the pivot motor, but only for specified time
                 m_subsystem->SetPivotSpeed(m_kPivotDownMotorSpeed);
             }
             else
             {
+                printf("Marker 3-2\n");
                 m_subsystem->SetPivotSpeed(0.0);
             }
         }
     }
     else
     {
+        printf("Marker 4\n");
         // if the button was previously pressed...
         if (m_pivotDownTimerStarted)
         {
+            printf("Marker 5");
             m_pivotDownTimerStarted = false;    // turn off down timer
             m_pivotTimer.Reset();
-            m_pivotTimer.Start();
             m_pivotUpTimerStarted = true;
         }
 
         if (m_pivotUpTimerStarted)
         {
+            printf("Marker 6\n");
             if (m_pivotTimer.Get() < m_kPivotTimerUpTime)
             {
+                printf("Marker 6-1\n");
                 // run the pivot motor, but only for specified time
                 m_subsystem->SetPivotSpeed(m_kPivotUpMotorSpeed);
             }
             else
             {
+                printf("Marker 6-2\n");
                 m_subsystem->SetPivotSpeed(0.0);
                 m_pivotUpTimerStarted = false;
+                m_pivotTimer.Stop();
             }
         }
-    } 
+    }
 }
 
 // Make this return true when this Command no longer needs to run execute()

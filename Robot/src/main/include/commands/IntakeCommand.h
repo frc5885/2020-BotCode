@@ -34,8 +34,8 @@ private:
     bool m_pivotDownTimerStarted, m_pivotUpTimerStarted;
 
     // pivot constants
-    static constexpr double m_kPivotUpMotorSpeed = 1.0;     // -1 -> 1
-    static constexpr double m_kPivotDownMotorSpeed = -1.0;  // -1 -> 1
+    static constexpr double m_kPivotUpMotorSpeed = 0.8;     // -1 -> 1
+    static constexpr double m_kPivotDownMotorSpeed = -0.25;  // -1 -> 1
     static constexpr units::time::second_t m_kPivotTimerDownTime = 1.0_s;    // seconds
     static constexpr units::time::second_t m_kPivotTimerUpTime = 1.0_s;      // seconds
 
