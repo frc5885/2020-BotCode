@@ -69,32 +69,32 @@ void Robot::TeleopInit()
         m_driveCommand->Schedule();
     }
 
-    m_testCommand = m_container.GetIntakeCommand();
+    m_intakeCommand = m_container.GetIntakeCommand();
 
-    if (m_testCommand != nullptr)
+    if (m_intakeCommand != nullptr)
     {
-        m_testCommand->Schedule();
+        m_intakeCommand->Schedule();
     }
 
-    m_testCommandTwo = m_container.GetConveyerCommand();
+    m_conveyerCommand = m_container.GetConveyerCommand();
 
-    if (m_testCommandTwo != nullptr)
+    if (m_conveyerCommand != nullptr)
     {
-        m_testCommandTwo->Schedule();
+        m_conveyerCommand->Schedule();
     }
 
-    m_testCommandThree = m_container.GetShooterCommand();
+    m_shooterCommand = m_container.GetShooterCommand();
 
-    if (m_testCommandThree != nullptr)
+    if (m_shooterCommand != nullptr)
     {
-        m_testCommandThree->Schedule();
+        m_shooterCommand->Schedule();
     }
 
-    m_testCommandFour = m_container.GetClimbCommand();
+    m_climbCommand = m_container.GetClimbCommand();
 
-    if (m_testCommandFour != nullptr)
+    if (m_climbCommand != nullptr)
     {
-        m_testCommandFour->Schedule();
+        m_climbCommand->Schedule();
     }
 
     // m_testCommand = m_container.GetShooterCommand();
