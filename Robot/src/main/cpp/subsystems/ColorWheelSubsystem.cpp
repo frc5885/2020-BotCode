@@ -12,9 +12,9 @@ ColorWheelSubsystem::ColorWheelSubsystem()
     : m_motorSpeed(0.0)
 {
     // motor controller
-    m_motor = std::make_shared<WPI_TalonSRX>(COLOR_WHEEL_CAN_ID);
-    m_motor ->SetSafetyEnabled(true);
-    m_motor ->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+    m_motor = std::make_shared<WPI_VictorSPX>(COLOR_WHEEL_CAN_ID);
+    m_motor->SetSafetyEnabled(true);
+    m_motor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
 void ColorWheelSubsystem::SetSpeed(double motorSpeed)
