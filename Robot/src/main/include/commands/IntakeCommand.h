@@ -40,6 +40,6 @@ private:
     static constexpr units::time::second_t m_kPivotTimerUpTime = 1.0_s;      // seconds
 
     // intake wheels constants
-    static constexpr double m_kForwardWheelSpeed = .2; // 0 -> 1
-    static constexpr double m_kReverseWheelSpeed = -.2;  // 0 -> 1
+    static constexpr double m_kForwardWheelSpeed = .4; // 0 -> 1
+    static constexpr double m_kReverseWheelSpeed = -.4;  // 0 -> 1
 };

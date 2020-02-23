@@ -66,10 +66,10 @@ void DriveCommand::Execute()
         // enough as low motor power will make them not turn.
         
         // Motor output at min error
-        double k_min_pow = 0.475;
+        double k_min_pow = 0.5;
         
         // Motor output at max error
-        double k_max_pow = 0.833;
+        double k_max_pow = 0.9;
 
         // Sign (+/-) of the error
         double k_sign = k_error >= 0 ? 1.0 : -1.0;
@@ -90,7 +90,7 @@ void DriveCommand::Execute()
     // motor gain value - used to slow down drive system for new drivers
     // always >= .4 and <= 1.0!!!
     // Turbo mode
-    double gain = (g_controller0->GetRightTrig() > 0.2 ? 1.0 : 0.6);
+    double gain = (g_controller0->GetRightTrig() > 0.2 ? 1.0 : 0.8);
 
     //printf("left motor = %3.2f right motor = %3.2f\n", gain*leftY, gain*rightY);
 
