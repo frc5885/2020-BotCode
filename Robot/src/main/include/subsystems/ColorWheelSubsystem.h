@@ -44,7 +44,7 @@ private:
 
     // Current color
     frc::Color detectedColor;
-
+	
     //motor speed (-1 -> 1)
     double m_motorSpeed;
 };

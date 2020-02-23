@@ -27,7 +27,6 @@ void ShooterCommand::Execute()
     g_controller1->GetState();
  
     m_subsystem->SetSpeed(g_controller1->GetLeftTrig());
-    printf("Left trigger = %3.2f\n", g_controller1->GetLeftTrig());
 }
 
 // Make this return true when this Command no longer needs to run execute()

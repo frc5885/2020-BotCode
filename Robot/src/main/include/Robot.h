@@ -35,11 +35,17 @@ private:
     // teleop command for tank drive
     frc2::Command *m_driveCommand = nullptr;
 
-    // command to be tested
-    frc2::Command *m_testCommand = nullptr;
-    frc2::Command *m_testCommandTwo = nullptr;
-    frc2::Command *m_testCommandThree = nullptr;
-    frc2::Command *m_testCommandFour = nullptr;
+    // teleop intake command
+    frc2::Command *m_intakeCommand = nullptr;
+
+    // teleop conveyer command
+    frc2::Command *m_conveyerCommand = nullptr;
+
+    // teleop shooter command
+    frc2::Command *m_shooterCommand = nullptr;
+
+    // teleop climb command 
+    frc2::Command *m_climbCommand = nullptr;
 
     RobotContainer m_container;
 };
