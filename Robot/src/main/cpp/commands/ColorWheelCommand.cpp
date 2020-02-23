@@ -8,23 +8,48 @@
 #include "Constants.h"
 #include "ControllerState.h"
 #include "commands/ColorWheelCommand.h"
+#include <frc/DriverStation.h>
 
 ColorWheelCommand::ColorWheelCommand(ColorWheelSubsystem *subsystem)
-    : m_subsystem{subsystem} {}
+    : m_subsystem{subsystem}
+    , m_counter(0)
+    , m_prevColor(frc::Color(0,0,0))
+    , m_targetColor(kGreenTarget) {}
 
 // ***** public methods *****
 
 // Called just before this Command runs the first time
 void ColorWheelCommand::Initialize()
 {
+    m_colorMap['R'] = kRedTarget;
+    m_colorMap['G'] = kGreenTarget;
+    m_colorMap['B'] = kBlueTarget;
+    m_colorMap['Y'] = kYellowTarget;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ColorWheelCommand::Execute()
 {
-    // speed is set from right trigger on controller 1
-    // direction is set from Y(forward) or B(reverse) buttons on controller 1
-    printf("%3.4f %3.4f %3.4f\n", m_subsystem->GetRawColor().red, m_subsystem->GetRawColor().green, m_subsystem->GetRawColor().blue);
+    m_gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
+
+    // Stage 1
+    // do nothing
+
+    // Stage 2
+    if (m_gameData.length() == 0)
+    {
+        frc::Color curColor = m_subsystem->GetColor();
+
+        if (m_counter <= 6)
+        {
+            m_subsystem->SetSpeed(0.4);
+
+            if (curColor == m_targetColor && !(m_prevColor == curColor))
+                m_counter++;
+        }
+
+        m_prevColor = curColor;
+    }
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -26,7 +26,7 @@ enum
     // LR_CAN_ID = 4,
     // RF_CAN_ID = 1,
     // RR_CAN_ID = 2,
-    COLOR_WHEEL_CAN_ID = 5,
+    //COLOR_WHEEL_CAN_ID = 5,
 
     // P2020
     LF_CAN_ID = 5,
@@ -41,7 +41,7 @@ enum
     LOWER_CONVEYOR_CAN_ID = 12,
     CLIMB_ONE_CAN_ID = 11,
     CLIMB_TWO_CAN_ID = 14,
-    // COLOR_WHEEL_CAN_ID = 15
+    COLOR_WHEEL_CAN_ID = 15
 };
 
 enum

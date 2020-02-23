@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc/util/Color.h>
 
 #include "subsystems/ColorWheelSubsystem.h"
 
@@ -30,4 +31,13 @@ public:
 
 private:
     ColorWheelSubsystem *m_subsystem;
+
+    // char -> color map
+    std::unordered_map<char, frc::Color> m_colorMap;
+
+    int m_counter;
+    frc::Color m_prevColor;
+    frc::Color m_targetColor;
+
+    std::string m_gameData;
 };

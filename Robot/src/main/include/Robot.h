@@ -47,5 +47,8 @@ private:
     // teleop climb command 
     frc2::Command *m_climbCommand = nullptr;
 
+    // teleop color wheel command
+    frc2::Command *m_colorWheelCommand = nullptr;
+
     RobotContainer m_container;
 };
