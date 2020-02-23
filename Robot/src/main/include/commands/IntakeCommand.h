@@ -41,5 +41,5 @@ private:
 
     // intake wheels constants
     static constexpr double m_kForwardWheelSpeed = .4; // 0 -> 1
-    static constexpr double m_kReverseWheelSpeed = -.4;  // 0 -> 1
+    static constexpr double m_kReverseWheelSpeed = -.75;  // 0 -> 1
 };

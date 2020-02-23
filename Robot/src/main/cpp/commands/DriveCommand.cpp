@@ -66,7 +66,7 @@ void DriveCommand::Execute()
         // enough as low motor power will make them not turn.
         
         // Motor output at min error
-        double k_min_pow = 0.5;
+        double k_min_pow = 0.6;
         
         // Motor output at max error
         double k_max_pow = 0.9;
@@ -77,8 +77,8 @@ void DriveCommand::Execute()
         // Calculate the output (Desmos: https://www.desmos.com/calculator/mxfs6w0vzx)
         double k_output = k_sign * (((k_min_pow-k_max_pow)/(-27.0)) * fabs(k_error) + k_min_pow);
 
-        // Stop the motors when we are within 0.5 degrees.
-        if (fabs(k_error) <= 0.5)
+        // Stop the motors when we are within 0.75 degrees.
+        if (fabs(k_error) <= 0.9)
             k_output = 0;
 
 
