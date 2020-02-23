@@ -96,12 +96,12 @@ void Robot::TeleopInit()
     //     m_climbCommand->Schedule();
     // }
 
-    // m_colorWheelCommand = m_container.GetColorWheelCommand();
+    m_colorWheelCommand = m_container.GetColorWheelCommand();
 
-    // if (m_colorWheelCommand != nullptr)
-    // {
-    //     m_colorWheelCommand->Schedule();
-    // }
+    if (m_colorWheelCommand != nullptr)
+    {
+        m_colorWheelCommand->Schedule();
+    }
 
     // m_testCommand = m_container.GetShooterCommand();
 

@@ -13,8 +13,13 @@
 ColorWheelCommand::ColorWheelCommand(ColorWheelSubsystem *subsystem)
     : m_subsystem{subsystem}
     , m_counter(0)
+    , m_maxCounts(7)
     , m_prevColor(frc::Color(0,0,0))
-    , m_targetColor(kGreenTarget) {}
+    , m_targetColor(kGreenTarget)
+    , m_gameData("")
+{
+}
+
 
 // ***** public methods *****
 
@@ -25,31 +30,65 @@ void ColorWheelCommand::Initialize()
     m_colorMap['G'] = kGreenTarget;
     m_colorMap['B'] = kBlueTarget;
     m_colorMap['Y'] = kYellowTarget;
+
+    m_counter = 0;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ColorWheelCommand::Execute()
 {
+    if (!g_controller1->m_controller.GetRawButton(BUTTON_Y))
+    {
+        if (m_counter >= m_maxCounts)
+        {
+            m_counter = 0;
+        }
+        
+        m_subsystem->SetSpeed(0.0);
+        return;
+    }
+
     m_gameData = frc::DriverStation::GetInstance().GetGameSpecificMessage();
 
-    // Stage 1
-    // do nothing
+    printf("%d\n", m_gameData[0]);
 
-    // Stage 2
     if (m_gameData.length() == 0)
     {
-        frc::Color curColor = m_subsystem->GetColor();
-
-        if (m_counter <= 6)
-        {
-            m_subsystem->SetSpeed(0.4);
-
-            if (curColor == m_targetColor && !(m_prevColor == curColor))
-                m_counter++;
-        }
-
-        m_prevColor = curColor;
+        printf("No game data\n");
+        // Stage 2
+        m_maxCounts = 7; // stage 2 - spin wheel 3 times
+        m_targetColor = kGreenTarget;   // always use green for counting
     }
+    else
+    {
+        // Stage 3
+        
+        m_maxCounts = 1; // stage 3 - index to colour
+        auto colourFound = m_colorMap.find(m_gameData[0]); // should be  one of R,G,B,Y
+
+        if (colourFound != m_colorMap.end())
+        {
+            m_targetColor = colourFound->second;
+        }
+    }
+
+    frc::Color curColor = m_subsystem->GetColor();
+
+    printf("Counter: %d max: %d\n", m_counter, m_maxCounts);
+
+    if (m_counter < m_maxCounts)
+    {
+        m_subsystem->SetSpeed(0.4);
+
+        if (curColor == m_targetColor && !(m_prevColor == curColor))
+            m_counter++;
+    } 
+    else
+    {
+        m_subsystem->SetSpeed(0.0);
+    }
+    
+    m_prevColor = curColor;
 }
 
 // Make this return true when this Command no longer needs to run execute()

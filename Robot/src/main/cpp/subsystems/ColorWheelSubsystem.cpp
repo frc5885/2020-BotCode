@@ -46,7 +46,9 @@ void ColorWheelSubsystem::SetSpeed(double motorSpeed)
 frc::Color ColorWheelSubsystem::GetColor()
 {
     double confidence = 0.0;
-    return m_colorMatcher.MatchClosestColor(detectedColor, confidence);
+    frc::Color c = m_colorMatcher.MatchClosestColor(detectedColor, confidence);
+    printf("c: %3.4f r: %3.4f g: %3.4f b: %3.4f", confidence, c.green, c.blue, c.red);
+    return c;
 }
 
 frc::Color ColorWheelSubsystem::GetRawColor()

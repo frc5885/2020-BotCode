@@ -35,7 +35,8 @@ private:
     // char -> color map
     std::unordered_map<char, frc::Color> m_colorMap;
 
-    int m_counter;
+    int m_counter;      // counts number of times target colour is found
+    int m_maxCounts;    // max. number of colour counts (1 or 7)
     frc::Color m_prevColor;
     frc::Color m_targetColor;
 
