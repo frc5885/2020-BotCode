@@ -5,16 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <frc/util/color.h>
+
 #include "Constants.h"
 #include "subsystems/ColorWheelSubsystem.h"
 
 ColorWheelSubsystem::ColorWheelSubsystem()
     : m_motorSpeed(0.0)
 {
+    m_colorMatcher.AddColorMatch(kBlueTarget);
+    m_colorMatcher.AddColorMatch(kGreenTarget);
+    m_colorMatcher.AddColorMatch(kRedTarget);
+    m_colorMatcher.AddColorMatch(kYellowTarget);
+
     // motor controller
-    m_motor = std::make_shared<WPI_TalonSRX>(CLIMB_ONE_CAN_ID);
-    m_motor ->SetSafetyEnabled(true);
-    m_motor ->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
+    m_motor = std::make_shared<WPI_TalonSRX>(COLOR_WHEEL_CAN_ID);
+    m_motor->SetSafetyEnabled(true);
+    m_motor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Brake);
 }
 
 void ColorWheelSubsystem::SetSpeed(double motorSpeed)
@@ -37,7 +44,21 @@ void ColorWheelSubsystem::SetSpeed(double motorSpeed)
     m_motorSpeed = motorSpeed;
 }
 
+frc::Color ColorWheelSubsystem::GetColor()
+{
+    double confidence = 0.0;
+    return m_colorMatcher.MatchClosestColor(detectedColor, confidence);
+}
+
+frc::Color ColorWheelSubsystem::GetRawColor()
+{
+    return m_colorSensor.GetColor();
+}
+
 void ColorWheelSubsystem::Periodic()
 {
     m_motor->Set(m_motorSpeed);
+    detectedColor = m_colorSensor.GetColor();
 }
+
+

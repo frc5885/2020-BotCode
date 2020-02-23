@@ -24,9 +24,7 @@ void ColorWheelCommand::Execute()
 {
     // speed is set from right trigger on controller 1
     // direction is set from Y(forward) or B(reverse) buttons on controller 1
-    g_controller1->GetState();
-
-    m_subsystem->SetSpeed(g_controller1->GetLeftBumper());
+    printf("%3.4f %3.4f %3.4f\n", m_subsystem->GetRawColor().red, m_subsystem->GetRawColor().green, m_subsystem->GetRawColor().blue);
 }
 
 // Make this return true when this Command no longer needs to run execute()

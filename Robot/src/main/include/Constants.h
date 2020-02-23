@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <frc/util/color.h>
 
 /**
  * The Constants header provides a convenient place for teams to hold robot-wide
@@ -25,6 +26,7 @@ enum
     // LR_CAN_ID = 4,
     // RF_CAN_ID = 1,
     // RR_CAN_ID = 2,
+    COLOR_WHEEL_CAN_ID = 5,
 
     // P2020
     LF_CAN_ID = 5,
@@ -39,7 +41,7 @@ enum
     LOWER_CONVEYOR_CAN_ID = 12,
     CLIMB_ONE_CAN_ID = 11,
     CLIMB_TWO_CAN_ID = 14,
-    COLOR_WHEEL_CAN_ID = 15
+    // COLOR_WHEEL_CAN_ID = 15
 };
 
 enum
@@ -47,3 +49,9 @@ enum
     DIRECTION_FWD = 1,
     DIRECTION_REV = -1
 };
+
+// Color Calibration **TODO**
+static constexpr frc::Color kBlueTarget = frc::Color(0.143, 0.427, 0.429);
+static constexpr frc::Color kGreenTarget = frc::Color(0.197, 0.561, 0.240);
+static constexpr frc::Color kRedTarget = frc::Color(0.561, 0.232, 0.114);
+static constexpr frc::Color kYellowTarget = frc::Color(0.361, 0.524, 0.113);
