@@ -31,15 +31,21 @@ public:
 private:
     IntakeSubsystem* m_subsystem;
     frc2::Timer m_pivotTimer;
-    bool m_pivotDownTimerStarted, m_pivotUpTimerStarted;
+    bool m_pivotTimerStarted;
 
     // pivot constants
-    static constexpr double m_kPivotUpMotorSpeed = 0.6;     // -1 -> 1
+    bool m_pivotDown;   // pivot up/down - up at beginning of match
+    static constexpr double m_kPivotUpMotorSpeed = 0.6;      // -1 -> 1
     static constexpr double m_kPivotDownMotorSpeed = -0.15;  // -1 -> 1
     static constexpr units::time::second_t m_kPivotTimerDownTime = 1.0_s;    // seconds
     static constexpr units::time::second_t m_kPivotTimerUpTime = 1.0_s;      // seconds
 
     // intake wheels constants
-    static constexpr double m_kForwardWheelSpeed = .2; // 0 -> 1
-    static constexpr double m_kReverseWheelSpeed = -.2;  // 0 -> 1
+    bool m_inIntakeMode;    // intake or eject balls
+    static constexpr double m_kForwardWheelSpeed = .4;   // 0 -> 1
+    static constexpr double m_kReverseWheelSpeed = -.75;  // -1 -> 0
+
+private:
+    void ControlPivot();
+    void ControlWheels();
 };

@@ -10,9 +10,12 @@
 #include "commands/IntakeCommand.h"
 
 IntakeCommand::IntakeCommand(IntakeSubsystem *subsystem)
-    : m_subsystem{subsystem},
-      m_pivotDownTimerStarted(false),
-      m_pivotUpTimerStarted(false) {}
+    : m_subsystem{subsystem}
+    , m_pivotTimerStarted(false)
+    , m_pivotDown(false)
+    , m_inIntakeMode(true)
+ {
+ }
 
 // ***** public methods *****
 
@@ -26,87 +29,72 @@ void IntakeCommand::Initialize()
 void IntakeCommand::Execute()
 {
     // all motor speeds are hard-coded (see header file for values)
-
-    // direction is set from X (forward) or A (reverse) buttons on controller 1
     g_controller1->GetState();
-
-    // set wheel direction based on X or A button being pressed
-    bool wheelsFwd = false;
-
-    if (g_controller1->m_controller.GetRawButton(BUTTON_X))
-    {
-        wheelsFwd = true;
-    }
-    else if (g_controller1->m_controller.GetRawButton(BUTTON_A))
-    {
-        wheelsFwd = false;
-    }
-
-    // turn on the intake wheels and pivot the intake
-    // if we want to run the intake wheels...
-    if (g_controller1->m_controller.GetRawButton(BUMPER_RIGHT))
-    {
-        
-        // turn on intake wheels
-        double speed = (wheelsFwd) ? m_kForwardWheelSpeed : m_kReverseWheelSpeed;
-        m_subsystem->SetWheelSpeed(speed);
-
-        if (!m_pivotDownTimerStarted)
-        {
-            // start the timer
-            m_pivotTimer.Reset();
-            m_pivotTimer.Start();
-            m_pivotDownTimerStarted = true;
-        }
-
-        // lower pivot
-        if (m_pivotDownTimerStarted)
-        {
-            if (m_pivotTimer.Get() < m_kPivotTimerDownTime)
-            {
-                // run the pivot motor, but only for specified time
-                m_subsystem->SetPivotSpeed(m_kPivotDownMotorSpeed);
-            }
-            else
-            {
-                m_subsystem->SetPivotSpeed(0.0);
-            }
-        }
-    }
-    else
-    {
-        m_subsystem->SetWheelSpeed(0.0);
-        
-        // if the button was previously pressed...
-        if (m_pivotDownTimerStarted)
-        {
-            
-            m_pivotDownTimerStarted = false;    // turn off down timer
-            m_pivotTimer.Reset();
-            m_pivotUpTimerStarted = true;
-        }
-
-        if (m_pivotUpTimerStarted)
-        {
-            
-            if (m_pivotTimer.Get() < m_kPivotTimerUpTime)
-            {
-                
-                // run the pivot motor, but only for specified time
-                m_subsystem->SetPivotSpeed(m_kPivotUpMotorSpeed);
-            }
-            else
-            {
-                m_subsystem->SetPivotSpeed(0.0);
-                m_pivotUpTimerStarted = false;
-                m_pivotTimer.Stop();
-            }
-        }
-    }
+    ControlPivot();
+    ControlWheels();
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool IntakeCommand::IsFinished()
 {
     return false;
+}
+
+
+// Private methods
+void IntakeCommand::ControlPivot()
+{
+    if (g_controller1->GetRightBumper() != m_pivotDown)
+    {
+        // button pressed, state changed
+        m_pivotDown = !m_pivotDown; // toggle the state
+
+        // set the appropriate motor speed and motor on time
+        double motorSpeed = (m_pivotDown) ? m_kPivotDownMotorSpeed : m_kPivotUpMotorSpeed;
+        auto pivotTime = (m_pivotDown) ? m_kPivotTimerDownTime : m_kPivotTimerUpTime;
+
+        // start the timer
+        m_pivotTimer.Reset();
+        m_pivotTimer.Start();
+        m_pivotTimerStarted = true;
+    }
+
+    // set the appropriate motor speed and motor on time
+    double motorSpeed = (m_pivotDown) ? m_kPivotDownMotorSpeed : m_kPivotUpMotorSpeed;
+    auto pivotTime = (m_pivotDown) ? m_kPivotTimerDownTime : m_kPivotTimerUpTime;
+
+    if (m_pivotTimerStarted)
+    {
+        if (m_pivotTimer.Get() < pivotTime)
+        {
+            // run the pivot motor, but only for specified time
+            m_subsystem->SetPivotSpeed(motorSpeed);
+        }
+        else
+        {
+            m_pivotTimer.Reset();
+            m_pivotTimerStarted = false;
+        }
+    }
+    else
+    {
+        m_subsystem->SetPivotSpeed(0.0);
+    }
+}
+
+void IntakeCommand::ControlWheels()
+{
+    double wheelSpeed = 0.0;
+
+    // direction is set from X (forward) or A (reverse) buttons on controller 1
+    if (g_controller1->m_controller.GetRawButton(BUTTON_X))
+    {
+        wheelSpeed = m_kForwardWheelSpeed;
+    }
+    else if (g_controller1->m_controller.GetRawButton(BUTTON_A))
+    {
+        wheelSpeed = m_kReverseWheelSpeed;
+    }
+
+    m_subsystem->SetWheelSpeed(wheelSpeed);
 }

@@ -45,5 +45,5 @@ void ShooterSubsystem::Periodic()
     m_topMotor->Set(m_topMotorSpeed);
     m_bottomMotor->Set(m_bottomMotorSpeed);
 
-    printf("Top motor = %3.2f bottom motor = %3.2f\n", m_topMotorSpeed, m_bottomMotorSpeed);
+    //printf("Top motor = %3.2f bottom motor = %3.2f\n", m_topMotorSpeed, m_bottomMotorSpeed);
 }

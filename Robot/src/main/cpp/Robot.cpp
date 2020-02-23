@@ -12,7 +12,6 @@
 
 void Robot::RobotInit() 
 {
-    
 }
 
 /**
@@ -62,40 +61,40 @@ void Robot::TeleopInit()
     //     m_autonomousCommand = nullptr;
     // }
 
-    m_driveCommand = m_container.GetDriveCommand();
+    // m_driveCommand = m_container.GetDriveCommand();
 
-    if (m_driveCommand != nullptr)
-    {
-        m_driveCommand->Schedule();
-    }
+    // if (m_driveCommand != nullptr)
+    // {
+    //     m_driveCommand->Schedule();
+    // }
 
-    m_intakeCommand = m_container.GetIntakeCommand();
+    // m_intakeCommand = m_container.GetIntakeCommand();
 
-    if (m_intakeCommand != nullptr)
-    {
-        m_intakeCommand->Schedule();
-    }
+    // if (m_intakeCommand != nullptr)
+    // {
+    //     m_intakeCommand->Schedule();
+    // }
 
-    m_conveyerCommand = m_container.GetConveyerCommand();
+    // m_conveyerCommand = m_container.GetConveyerCommand();
 
-    if (m_conveyerCommand != nullptr)
-    {
-        m_conveyerCommand->Schedule();
-    }
+    // if (m_conveyerCommand != nullptr)
+    // {
+    //     m_conveyerCommand->Schedule();
+    // }
 
-    m_shooterCommand = m_container.GetShooterCommand();
+    // m_shooterCommand = m_container.GetShooterCommand();
 
-    if (m_shooterCommand != nullptr)
-    {
-        m_shooterCommand->Schedule();
-    }
+    // if (m_shooterCommand != nullptr)
+    // {
+    //     m_shooterCommand->Schedule();
+    // }
 
-    m_climbCommand = m_container.GetClimbCommand();
+    // m_climbCommand = m_container.GetClimbCommand();
 
-    if (m_climbCommand != nullptr)
-    {
-        m_climbCommand->Schedule();
-    }
+    // if (m_climbCommand != nullptr)
+    // {
+    //     m_climbCommand->Schedule();
+    // }
 
     // m_colorWheelCommand = m_container.GetColorWheelCommand();
 
