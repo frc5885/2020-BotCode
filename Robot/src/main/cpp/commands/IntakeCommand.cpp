@@ -49,10 +49,6 @@ void IntakeCommand::ControlPivot()
         // button pressed, state changed
         m_pivotDown = !m_pivotDown; // toggle the state
 
-        // set the appropriate motor speed and motor on time
-        double motorSpeed = (m_pivotDown) ? m_kPivotDownMotorSpeed : m_kPivotUpMotorSpeed;
-        auto pivotTime = (m_pivotDown) ? m_kPivotTimerDownTime : m_kPivotTimerUpTime;
-
         // start the timer
         m_pivotTimer.Reset();
         m_pivotTimer.Start();
