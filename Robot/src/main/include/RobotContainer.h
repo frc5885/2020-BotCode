@@ -9,9 +9,6 @@
 
 #include <frc2/command/Command.h>
 
-#include "commands/ExampleCommand.h"
-#include "subsystems/ExampleSubsystem.h"
-
 #include "commands/DriveCommand.h"
 #include "subsystems/DriveSubsystem.h"
 
@@ -29,6 +26,8 @@
 
 #include "commands/ClimbCommand.h"
 #include "subsystems/ClimbSubsystem.h"
+
+#include "commands/Auto.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -55,8 +54,6 @@ public:
     // private properties
 private:
     // The robot's subsystems and commands are defined here...
-    ExampleSubsystem m_exampleSubsystem;
-    ExampleCommand m_autonomousCommand;
 
     DriveSubsystem m_driveSubsystem;
     DriveCommand m_driveCommand;
@@ -75,6 +72,8 @@ private:
 
     ClimbSubsystem m_climbSubsystem;
     ClimbCommand m_climbCommand;
+
+    Auto m_autoCommand;
 
     // private methods
 private:
