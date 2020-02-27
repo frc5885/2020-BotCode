@@ -16,6 +16,7 @@
 #include "subsystems/IntakeSubsystem.h"
 
 #include "commands/ShooterCommand.h"
+#include "commands/AutoShooterCommand.h"
 #include "subsystems/ShooterSubsystem.h"
 
 #include "commands/ColorWheelCommand.h"
@@ -47,6 +48,7 @@ public:
     frc2::Command* GetDriveCommand();
     frc2::Command *GetIntakeCommand();
     frc2::Command *GetShooterCommand();
+    frc2::Command *GetAutoShooterCommand();
     frc2::Command *GetColorWheelCommand();
     frc2::Command *GetConveyerCommand();
     frc2::Command *GetClimbCommand();

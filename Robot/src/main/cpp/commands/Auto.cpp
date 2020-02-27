@@ -7,10 +7,10 @@
 
 #include "commands/Auto.h"
 
-Auto::Auto(DriveSubsystem *drive)
+Auto::Auto(DriveSubsystem *drive, ShooterSubsystem *shooter)
 {
-    printf("**********************************************");
     AddCommands(
         // Drive forward the specified distance
-        DriveDistance(3.0_s, 0.5, drive));
+        DriveDistance(1.0_s, 0.5, drive),
+        AutoShooterCommand(1.0_s, .5, shooter));
 }

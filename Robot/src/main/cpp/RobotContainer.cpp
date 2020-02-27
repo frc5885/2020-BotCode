@@ -15,7 +15,7 @@ RobotContainer::RobotContainer()
     , m_colorWheelCommand(&m_colorWheelSubsystem)
     , m_conveyerCommand(&m_conveyerSubsystem)
     , m_climbCommand(&m_climbSubsystem)
-    , m_autoCommand(&m_driveSubsystem)
+    , m_autoCommand(&m_driveSubsystem, &m_shooterSubsystem)
 {
     // Initialize all of your commands and subsystems here
 
@@ -64,7 +64,7 @@ frc2::Command *RobotContainer::GetClimbCommand()
 
 frc2::Command *RobotContainer::GetAutonomousCommand()
 {
-    printf("GET autoCommand");
+    printf("GET autoCommand\n");
     return &m_autoCommand;
 }
 

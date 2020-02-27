@@ -10,35 +10,28 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/DriveSubsystem.h"
+#include "subsystems/ShooterSubsystem.h"
 
-/**
- * An example command that uses an example subsystem.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
- */
-class DriveDistance
-    : public frc2::CommandHelper<frc2::CommandBase, DriveDistance>
+class AutoShooterCommand
+    : public frc2::CommandHelper<frc2::CommandBase, AutoShooterCommand> 
 {
 public:
     /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-    DriveDistance(units::time::second_t time, double speed, DriveSubsystem *subsystem);
+     * Creates a new AutoShooterCommand.
+     *
+     * @param subsystem The subsystem used by this command.
+     */
+    explicit AutoShooterCommand(units::time::second_t time, double speed, 
+        ShooterSubsystem* subsystem);
 
+    // scheduler handers for various states
     void Initialize() override;
-
     void Execute() override;
     void End(bool interrupted) override;
-
     bool IsFinished() override;
 
 private:
-    DriveSubsystem *m_subsystem;
+    ShooterSubsystem* m_subsystem;
     double m_speed;
     units::time::second_t m_maxTime;
     frc2::Timer m_timer;

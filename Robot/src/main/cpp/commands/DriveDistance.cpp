@@ -12,14 +12,18 @@ DriveDistance::DriveDistance(units::time::second_t time, double speed, DriveSubs
       m_speed(speed),
       m_maxTime(time)
 {
-    AddRequirements({subsystem});
 }
 
 void DriveDistance::Initialize()
 {
-    printf("trigger");
+    printf("shooter intialize\n");
     m_timer.Reset();
     m_timer.Start();
+}
+
+void DriveDistance::Execute()
+{
+    printf("Executing\n");
     m_subsystem->SetLeftSpeed(0.5);
     m_subsystem->SetRightSpeed(0.5);
 }
@@ -28,11 +32,11 @@ void DriveDistance::End(bool interrupted)
 {
     m_subsystem->SetLeftSpeed(0.0);
     m_subsystem->SetRightSpeed(0.0);
-    printf("end");
+    printf("end\n");
 }
 
 bool DriveDistance::IsFinished()
 {
-    printf("is finished?");
-    return m_timer.Get() <= m_maxTime;
+    printf("is finished?\n");
+    return (m_timer.Get() > m_maxTime);
 }

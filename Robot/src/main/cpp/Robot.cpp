@@ -47,7 +47,10 @@ void Robot::AutonomousInit()
     }
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() 
+{
+//    printf("Autonomous periodic\n");
+}
 
 void Robot::TeleopInit() 
 {
@@ -115,8 +118,7 @@ void Robot::TeleopInit()
  * This function is called periodically during operator control.
  */
 void Robot::TeleopPeriodic() 
-{
-    
+{ 
 }
 
 void Robot::TestInit()
