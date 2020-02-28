@@ -7,10 +7,10 @@
 
 #include "commands/DriveDistance.h"
 
-DriveDistance::DriveDistance(units::time::second_t time, double speed, DriveSubsystem *subsystem)
-    : m_subsystem{subsystem},
-      m_speed(speed),
-      m_maxTime(time)
+DriveDistance::DriveDistance(units::time::second_t maxTime, double speed, DriveSubsystem *subsystem)
+    : m_subsystem{subsystem}
+    , m_speed(speed)
+    , m_maxTime(maxTime)
 {
 }
 

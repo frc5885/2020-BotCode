@@ -36,8 +36,6 @@ void ShooterSubsystem::SetSpeed(double motorSpeed)
 
     m_topMotorSpeed = -motorSpeed;
     m_bottomMotorSpeed = motorSpeed;
-
-    printf("Speed set\n");
 }
 
 void ShooterSubsystem::Periodic()

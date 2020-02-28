@@ -28,7 +28,7 @@ public:
    *
    * @param subsystem The subsystem used by this command.
    */
-    DriveDistance(units::time::second_t time, double speed, DriveSubsystem *subsystem);
+    DriveDistance(units::time::second_t maxTime, double speed, DriveSubsystem *subsystem);
 
     void Initialize() override;
 

@@ -7,13 +7,15 @@
 
 #include "Constants.h"
 #include "ControllerState.h"
-#include "commands/AutoShooterCommand.h"
+#include "commands/AutoConveyerCommand.h"
 
-AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double speed, 
-    ShooterSubsystem* subsystem)
+AutoConveyerCommand::AutoConveyerCommand(units::time::second_t maxTime, 
+        units::time::second_t delayTime, double speed, ConveyerSubsystem *subsystem)
     : m_subsystem{subsystem}
-    ,  m_speed(speed)
-    ,  m_maxTime(maxTime)
+    , m_speed(speed)
+    , m_maxTime(maxTime)
+    , m_maxDelayTime(delayTime)
+    , m_started(false)
 {
 }
 
@@ -21,29 +23,38 @@ AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double spe
 // ***** public methods *****
 
 // Called just before this Command runs the first time
-void AutoShooterCommand::Initialize()
+void AutoConveyerCommand::Initialize()
 {
-    printf("shooter intialize\n");
-    m_timer.Reset();
-    m_timer.Start();
+    m_delayTimer.Reset();
+    m_delayTimer.Start();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void AutoShooterCommand::Execute()
+void AutoConveyerCommand::Execute()
 {
-    // speed is set from left trigger
-    g_controller1->GetState();
+    if (m_delayTimer.Get() < m_maxDelayTime)
+    {
+        return; // not ready yet
+    }
+
+    if (!m_started)
+    {
+        m_timer.Reset();
+        m_timer.Start();
+        m_started = true;
+    }
+
     m_subsystem->SetSpeed(m_speed);
 }
 
-void AutoShooterCommand::End(bool interrupted)
+void AutoConveyerCommand::End(bool interrupted)
 {
-    printf("Stopped shooter\n");
+    printf("Stopped conveyor\n");
     m_subsystem->SetSpeed(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool AutoShooterCommand::IsFinished()
+bool AutoConveyerCommand::IsFinished()
 {
-   return (m_timer.Get() > m_maxTime);
+    return (m_timer.Get() > m_maxTime);
 }

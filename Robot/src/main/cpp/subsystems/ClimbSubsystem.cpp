@@ -43,6 +43,14 @@ void ClimbSubsystem::SetSpeed(double motorSpeed)
 
 void ClimbSubsystem::Periodic()
 {
-    m_motorOne->Set(m_motorSpeed);
-    m_motorTwo->Set(m_motorSpeed);
+    if (std::abs(m_motorSpeed) < .05)
+    {
+        m_motorOne->Set(0.0);
+        m_motorTwo->Set(0.0);
+    }
+    else
+    {
+        m_motorOne->Set(m_motorSpeed);
+        m_motorTwo->Set(ControlMode::Follower, CLIMB_ONE_CAN_ID);
+    }
 }

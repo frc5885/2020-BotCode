@@ -12,21 +12,11 @@
 
 #include "Constants.h"
 #include "commands/DriveDistance.h"
-#include "commands/AutoShooterCommand.h"
+#include "commands/AutoShooterCmdGroup.h"
 
-/**
- * A complex auto command that drives forward, releases a hatch, and then drives
- * backward.
- */
 class Auto
     : public frc2::CommandHelper<frc2::SequentialCommandGroup, Auto>
 {
 public:
-    /**
-   * Creates a new ComplexAuto.
-   *
-   * @param drive The drive subsystem this command will run on
-   * @param hatch The hatch subsystem this command will run on
-   */
-    Auto(DriveSubsystem *drive, ShooterSubsystem *shooter);
+    Auto(DriveSubsystem *drive, ShooterSubsystem *shooter, ConveyerSubsystem *conveyer);
 };

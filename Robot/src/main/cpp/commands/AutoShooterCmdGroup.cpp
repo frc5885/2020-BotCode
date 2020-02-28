@@ -7,9 +7,9 @@
 
 #include "commands/Auto.h"
 
-Auto::Auto(DriveSubsystem *drive, ShooterSubsystem *shooter, ConveyerSubsystem *conveyer)
+AutoShooterCmdGroup::AutoShooterCmdGroup(ShooterSubsystem *shooter, ConveyerSubsystem *conveyer)
 {
     AddCommands(
-        AutoShooterCmdGroup(shooter, conveyer),
-        DriveDistance(3.0_s, 0.7, drive));
+        AutoShooterCommand(5.0_s, .9, shooter),
+        AutoConveyerCommand(3.0_s, 2.0_s, .75, conveyer));
 }

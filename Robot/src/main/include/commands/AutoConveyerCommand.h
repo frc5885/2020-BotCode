@@ -10,19 +10,19 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/ShooterSubsystem.h"
+#include "subsystems/ConveyerSubsystem.h"
 
-class AutoShooterCommand
-    : public frc2::CommandHelper<frc2::CommandBase, AutoShooterCommand> 
+class AutoConveyerCommand
+    : public frc2::CommandHelper<frc2::CommandBase, AutoConveyerCommand>
 {
 public:
     /**
-     * Creates a new AutoShooterCommand.
+     * Creates a new ShooterCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    explicit AutoShooterCommand(units::time::second_t maxTime, double speed, 
-        ShooterSubsystem* subsystem);
+    explicit AutoConveyerCommand(units::time::second_t maxTime, 
+        units::time::second_t delayTime, double speed, ConveyerSubsystem *subsystem);
 
     // scheduler handers for various states
     void Initialize() override;
@@ -31,8 +31,9 @@ public:
     bool IsFinished() override;
 
 private:
-    ShooterSubsystem* m_subsystem;
+    ConveyerSubsystem *m_subsystem;
     double m_speed;
-    units::time::second_t m_maxTime;
-    frc2::Timer m_timer;
+    units::time::second_t m_maxTime, m_maxDelayTime;
+    frc2::Timer m_timer, m_delayTimer;
+    bool m_started;
 };
