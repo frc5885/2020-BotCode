@@ -42,4 +42,5 @@ private:
     // private methods
 private:
     double SmoothDriveCurve(double joystickYPosition) const;
+    double GetMotorSpeedFromVisionTarget();
 };

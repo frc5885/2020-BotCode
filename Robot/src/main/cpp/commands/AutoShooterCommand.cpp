@@ -12,8 +12,8 @@
 AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double speed, 
     ShooterSubsystem* subsystem)
     : m_subsystem{subsystem}
-    ,  m_speed(speed)
-    ,  m_maxTime(maxTime)
+    , m_speed(speed)
+    , m_maxTime(maxTime)
 {
 }
 
@@ -38,7 +38,6 @@ void AutoShooterCommand::Execute()
 
 void AutoShooterCommand::End(bool interrupted)
 {
-    printf("Stopped shooter\n");
     m_subsystem->SetSpeed(0.0);
 }
 

@@ -5,11 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/Auto.h"
+#include "commands/AutoShooterCmdGroup.h"
 
 AutoShooterCmdGroup::AutoShooterCmdGroup(ShooterSubsystem *shooter, ConveyerSubsystem *conveyer)
 {
-    AddCommands(
-        AutoShooterCommand(5.0_s, .9, shooter),
-        AutoConveyerCommand(3.0_s, 2.0_s, .75, conveyer));
+    units::time::second_t shooterTime = 5.0_s;          // change this time, as required
+    units::time::second_t shooterWindupTime = 2.0_s;    // change this time, as required
+    units::time::second_t conveyerTime = shooterTime - shooterWindupTime;
+
+    double shooterMotorSpeed = .9;      // 0 -> 1
+    double conveyerMotorSpeed = .75;    // 0 -> 1
+
+    m_pShooterCommand = std::make_unique<AutoShooterCommand>(shooterTime, 
+        shooterMotorSpeed, shooter);
+
+    m_pConveyerCommand = std::make_unique<AutoConveyerCommand>(conveyerTime, 
+        shooterWindupTime, conveyerMotorSpeed, conveyer);
+
+    AddCommands(*m_pShooterCommand, *m_pConveyerCommand);
+}
+
+bool AutoShooterCmdGroup::IsFinished()
+{
+    return (m_pShooterCommand->IsFinished() && m_pConveyerCommand->IsFinished());
 }

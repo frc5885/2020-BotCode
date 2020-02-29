@@ -17,6 +17,13 @@
 class AutoShooterCmdGroup
     : public frc2::CommandHelper<frc2::ParallelCommandGroup, AutoShooterCmdGroup>
 {
+// public methods
 public:
     AutoShooterCmdGroup(ShooterSubsystem *shooter, ConveyerSubsystem *conveyer);
-}
+    bool IsFinished() override;
+
+// private properties
+private:
+    std::unique_ptr<AutoShooterCommand> m_pShooterCommand;
+    std::unique_ptr<AutoConveyerCommand> m_pConveyerCommand;
+};

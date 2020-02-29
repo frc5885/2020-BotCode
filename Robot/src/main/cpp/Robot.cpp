@@ -10,8 +10,13 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+#include "ILimelight.h"
+
 void Robot::RobotInit() 
 {
+    // make sure Limelight LEDs are off at startup
+    ILimelight limelight;
+    limelight.SetLedMode(LedMode::OFF);
 }
 
 /**

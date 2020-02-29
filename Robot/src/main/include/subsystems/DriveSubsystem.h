@@ -12,6 +12,7 @@
 #include "Definitions.h"
 #include <frc2/command/SubsystemBase.h>
 #include <networktables/NetworkTableInstance.h>
+#include "ILimelight.h"
 
 class DriveSubsystem : public frc2::SubsystemBase 
 {
@@ -33,7 +34,7 @@ public:
     bool GetLimeVisibleTarget();
     
     // Limelight Sets
-    void setLimeLedMode(LedMode);
+    void SetLimeLedMode(LedMode ledMode);
 
     // properties
 private:
@@ -47,9 +48,9 @@ private:
      std::shared_ptr<frc::SpeedControllerGroup> m_rightController;
      std::shared_ptr<frc::DifferentialDrive> m_drive;
 
-     // Limelight Network Table
-     std::shared_ptr<nt::NetworkTable> nt_limelight;
+    // Class with 'friendly' Limelight functions
+    ILimelight m_limelight;
 
-     // left / right motor speeds (-1 -> 1)
+    // left / right motor speeds (-1 -> 1)
      double m_leftSpeed, m_rightSpeed;
 };

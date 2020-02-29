@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include "Definitions.h"
 #include "ControllerState.h"
 #include "commands/DriveCommand.h"
 
@@ -48,45 +49,27 @@ void DriveCommand::Execute()
 
     if (g_controller0->GetLeftBumper()) // Invert drive code
     {
-        float temp = leftY;
-        leftY = rightY;
+        float temp = -leftY;
+        leftY = -rightY;
         rightY = temp;
     }
 
-    // Enable vision assisted targeting
     // B button on main controller
     if (g_controller0->GetButtonB())
     {
-        // Error as target approaches 0
-        double k_error = m_subsystem->GetLimeHorizontalOffset();
-        
-        // As the bot approaches the target, the motor power will get lower.
-        // The error max is -27/27 and the min is 0.
-        // Make sure the motor output for both min/max are high
-        // enough as low motor power will make them not turn.
-        
-        // Motor output at min error
-        double k_min_pow = 0.6;
-        
-        // Motor output at max error
-        double k_max_pow = 0.9;
+        // Enable vision assisted targeting
 
-        // Sign (+/-) of the error
-        double k_sign = k_error >= 0 ? 1.0 : -1.0;
-        
-        // Calculate the output (Desmos: https://www.desmos.com/calculator/mxfs6w0vzx)
-        double k_output = k_sign * (((k_min_pow-k_max_pow)/(-27.0)) * fabs(k_error) + k_min_pow);
-
-        // Stop the motors when we are within 0.75 degrees.
-        if (fabs(k_error) <= 0.9)
-            k_output = 0;
-
-
-        leftY = (k_output);
-        rightY = -(k_output);
+        // Turn on the LEDs and set the motor speed
+        m_subsystem->SetLimeLedMode(LedMode::ON);
+        leftY = GetMotorSpeedFromVisionTarget();
+        rightY = -leftY;
+    }
+    else
+    {
+        // ensure that the Limelight LEDs are off
+        m_subsystem->SetLimeLedMode(LedMode::OFF);
     }
     
-
     // motor gain value - used to slow down drive system for new drivers
     // always >= .4 and <= 1.0!!!
     // Turbo mode
@@ -124,4 +107,33 @@ double DriveCommand::SmoothDriveCurve(double joystickYPosition) const
 
     // Returns the corresponding motor speed
     return (a * joystickYPosition * joystickYPosition) + (b * joystickYPosition);
+}
+
+double DriveCommand::GetMotorSpeedFromVisionTarget()
+{
+    // Error as target approaches 0
+    double k_error = m_subsystem->GetLimeHorizontalOffset();
+    
+    // As the bot approaches the target, the motor power will get lower.
+    // The error max is -27/27 and the min is 0.
+    // Make sure the motor output for both min/max are high
+    // enough as low motor power will make them not turn.
+    
+    // Motor output at min error
+    double k_min_pow = 0.6;
+    
+    // Motor output at max error
+    double k_max_pow = 0.9;
+
+    // Sign (+/-) of the error
+    double k_sign = k_error >= 0 ? 1.0 : -1.0;
+    
+    // Calculate the output (Desmos: https://www.desmos.com/calculator/mxfs6w0vzx)
+    double k_output = k_sign * (((k_min_pow-k_max_pow)/(-27.0)) * fabs(k_error) + k_min_pow);
+
+    // Stop the motors when we are within 0.75 degrees.
+    if (fabs(k_error) <= 0.9)
+        k_output = 0.0;
+
+    return k_output;   
 }
