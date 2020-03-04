@@ -30,4 +30,5 @@ public:
 
 private:
     ClimbSubsystem* m_subsystem;
+    bool m_enabled;
 };

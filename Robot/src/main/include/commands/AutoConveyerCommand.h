@@ -12,6 +12,8 @@
 
 #include "subsystems/ConveyerSubsystem.h"
 
+extern bool g_autoConveyerCommandFinished;
+
 class AutoConveyerCommand
     : public frc2::CommandHelper<frc2::CommandBase, AutoConveyerCommand>
 {

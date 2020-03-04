@@ -9,6 +9,8 @@
 #include "ControllerState.h"
 #include "commands/AutoShooterCommand.h"
 
+bool g_autoShooterCommandFinished = false;
+
 AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double speed, 
     ShooterSubsystem* subsystem)
     : m_subsystem{subsystem}
@@ -26,13 +28,12 @@ void AutoShooterCommand::Initialize()
     printf("shooter intialize\n");
     m_timer.Reset();
     m_timer.Start();
+    g_autoShooterCommandFinished = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutoShooterCommand::Execute()
 {
-    // speed is set from left trigger
-    g_controller1->GetState();
     m_subsystem->SetSpeed(m_speed);
 }
 
@@ -44,5 +45,12 @@ void AutoShooterCommand::End(bool interrupted)
 // Make this return true when this Command no longer needs to run execute()
 bool AutoShooterCommand::IsFinished()
 {
-   return (m_timer.Get() > m_maxTime);
+   bool finished = (m_timer.Get() > m_maxTime);
+
+   if (finished)
+   {
+       g_autoShooterCommandFinished = true;
+   }
+
+   return finished;
 }

@@ -29,7 +29,7 @@ void IntakeCommand::Initialize()
 void IntakeCommand::Execute()
 {
     // all motor speeds are hard-coded (see header file for values)
-    g_controller1->GetState();
+    // g_controller1->GetState();
     ControlPivot();
     ControlWheels();
 }

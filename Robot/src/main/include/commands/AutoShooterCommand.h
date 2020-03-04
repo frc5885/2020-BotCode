@@ -12,6 +12,8 @@
 
 #include "subsystems/ShooterSubsystem.h"
 
+extern bool g_autoShooterCommandFinished;
+
 class AutoShooterCommand
     : public frc2::CommandHelper<frc2::CommandBase, AutoShooterCommand> 
 {
@@ -29,7 +31,7 @@ public:
     void Execute() override;
     void End(bool interrupted) override;
     bool IsFinished() override;
-
+    
 private:
     ShooterSubsystem* m_subsystem;
     double m_speed;

@@ -19,6 +19,7 @@ AutoConveyerCommand::AutoConveyerCommand(units::time::second_t maxTime,
 {
 }
 
+bool g_autoConveyerCommandFinished = false;
 
 // ***** public methods *****
 
@@ -27,6 +28,7 @@ void AutoConveyerCommand::Initialize()
 {
     m_delayTimer.Reset();
     m_delayTimer.Start();
+    g_autoConveyerCommandFinished = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -56,5 +58,12 @@ void AutoConveyerCommand::End(bool interrupted)
 // Make this return true when this Command no longer needs to run execute()
 bool AutoConveyerCommand::IsFinished()
 {
-    return (m_timer.Get() > m_maxTime);
+   bool finished = (m_timer.Get() > m_maxTime);
+
+   if (finished)
+   {
+       g_autoConveyerCommandFinished = true;
+   }
+
+   return finished;
 }

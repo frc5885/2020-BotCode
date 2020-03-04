@@ -13,8 +13,8 @@ AutoShooterCmdGroup::AutoShooterCmdGroup(ShooterSubsystem *shooter, ConveyerSubs
     units::time::second_t shooterWindupTime = 2.0_s;    // change this time, as required
     units::time::second_t conveyerTime = shooterTime - shooterWindupTime;
 
-    double shooterMotorSpeed = .9;      // 0 -> 1
-    double conveyerMotorSpeed = .75;    // 0 -> 1
+    double shooterMotorSpeed = .7;     // 0 -> 1
+    double conveyerMotorSpeed = .6;    // 0 -> 1
 
     m_pShooterCommand = std::make_unique<AutoShooterCommand>(shooterTime, 
         shooterMotorSpeed, shooter);
@@ -27,5 +27,5 @@ AutoShooterCmdGroup::AutoShooterCmdGroup(ShooterSubsystem *shooter, ConveyerSubs
 
 bool AutoShooterCmdGroup::IsFinished()
 {
-    return (m_pShooterCommand->IsFinished() && m_pConveyerCommand->IsFinished());
+    return (g_autoShooterCommandFinished && g_autoConveyerCommandFinished);
 }

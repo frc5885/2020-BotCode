@@ -26,7 +26,7 @@ void DriveCommand::Initialize()
 void DriveCommand::Execute()
 {
     // get state of xbox controller controls
-    g_controller0->GetState();
+    // g_controller0->GetState();
 
     // get raw joystick values and +- sign
     //this pulls the joystick values into the program.
@@ -47,15 +47,21 @@ void DriveCommand::Execute()
     float leftY = SignOf(leftX) * SmoothDriveCurve(fabs(leftX));
     float rightY = SignOf(rightX) * SmoothDriveCurve(fabs(rightX));
 
-    if (g_controller0->GetLeftBumper()) // Invert drive code
+    // drive inversion (swap front / back)
+    if (g_controller0->GetLeftBumper()) 
     {
+        //g_controller0->SetRumbles(.5);
         float temp = -leftY;
         leftY = -rightY;
         rightY = temp;
     }
-
+    else
+    {
+        //g_controller0->SetRumbles(0.0);
+    }
+    
     // B button on main controller
-    if (g_controller0->GetButtonB())
+    if (g_controller0->m_controller.GetRawButton(BUTTON_B))
     {
         // Enable vision assisted targeting
 
@@ -120,10 +126,10 @@ double DriveCommand::GetMotorSpeedFromVisionTarget()
     // enough as low motor power will make them not turn.
     
     // Motor output at min error
-    double k_min_pow = 0.6;
+    double k_min_pow = .40;//0.6;
     
     // Motor output at max error
-    double k_max_pow = 0.9;
+    double k_max_pow = .7;//0.9;
 
     // Sign (+/-) of the error
     double k_sign = k_error >= 0 ? 1.0 : -1.0;

@@ -10,13 +10,11 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+#include "ControllerState.h"
 #include "ILimelight.h"
 
 void Robot::RobotInit() 
 {
-    // make sure Limelight LEDs are off at startup
-    ILimelight limelight;
-    limelight.SetLedMode(LedMode::OFF);
 }
 
 /**
@@ -44,6 +42,10 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit() 
 {
+    // make sure Limelight LEDs are off at startup
+    ILimelight limelight;
+    limelight.SetLedMode(LedMode::OFF);
+
     m_autonomousCommand = m_container.GetAutonomousCommand();
 
     if (m_autonomousCommand != nullptr) 
@@ -124,6 +126,9 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic() 
 { 
+    g_controller0->GetState();
+    g_controller1->GetState();
+    frc::SmartDashboard::PutNumber("Shooter % power", 100.0 * g_controller1->GetLeftTrig());
 }
 
 void Robot::TestInit()

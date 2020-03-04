@@ -10,7 +10,11 @@
 #include "commands/ClimbCommand.h"
 
 ClimbCommand::ClimbCommand(ClimbSubsystem* subsystem)
-    : m_subsystem{subsystem} {}
+
+    : m_subsystem{subsystem}
+    , m_enabled(false)
+    {
+    }
 
 
 // ***** public methods *****
@@ -23,10 +27,15 @@ void ClimbCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ClimbCommand::Execute()
 {
-    // speed is set from right joystick Y on controller 1
-    g_controller1->GetState();
+    if (g_controller0->GetButtonX())
+    {
+        m_enabled = true;
+    }
 
-    m_subsystem->SetSpeed(g_controller1->GetRightY());
+    if (m_enabled)
+    {
+        m_subsystem->SetSpeed(g_controller1->GetRightY());
+    }
 }
 
 // Make this return true when this Command no longer needs to run execute()
