@@ -16,8 +16,8 @@ public:
 
 // public methods
 public:
-    // Set motor speed and direction
-    void SetSpeed(double motorSpeed);
+    // Set motor speeds and direction
+    void SetSpeeds(double upperMotorSpeed, double lowerMotorSpeed);
 
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;

@@ -26,7 +26,8 @@ void ShooterCommand::Execute()
     // speed is set from left trigger
     // g_controller1->GetState();
  
-    m_subsystem->SetSpeed(1.2 * g_controller1->GetLeftTrig());
+    double motorSpeed = 1.2 * g_controller1->GetLeftTrig();
+    m_subsystem->SetSpeeds(motorSpeed, motorSpeed);
 }
 
 // Make this return true when this Command no longer needs to run execute()

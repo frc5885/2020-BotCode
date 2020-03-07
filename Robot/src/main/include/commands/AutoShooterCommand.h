@@ -23,8 +23,8 @@ public:
      *
      * @param subsystem The subsystem used by this command.
      */
-    explicit AutoShooterCommand(units::time::second_t maxTime, double speed, 
-        ShooterSubsystem* subsystem);
+    explicit AutoShooterCommand(units::time::second_t maxTime, double upperSpeed, 
+        double lowerSpeed, ShooterSubsystem* subsystem);
 
     // scheduler handers for various states
     void Initialize() override;
@@ -34,7 +34,7 @@ public:
     
 private:
     ShooterSubsystem* m_subsystem;
-    double m_speed;
+    double m_upperSpeed, m_lowerSpeed;
     units::time::second_t m_maxTime;
     frc2::Timer m_timer;
 };

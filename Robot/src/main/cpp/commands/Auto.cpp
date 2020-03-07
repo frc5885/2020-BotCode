@@ -10,6 +10,6 @@
 Auto::Auto(DriveSubsystem *drive, ShooterSubsystem *shooter, ConveyerSubsystem *conveyer)
 {
     AddCommands(
-        AutoShooterCmdGroup(shooter, conveyer),
-        DriveDistance(3.0_s, 0.7, drive));
+        AutoShooterCmdGroup(shooter, conveyer));
+       // todo: put back for competition!!! DriveDistance(3.0_s, 0.7, drive));
 }

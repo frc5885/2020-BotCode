@@ -22,20 +22,30 @@ ShooterSubsystem::ShooterSubsystem()
    m_bottomMotor->SetNeutralMode(ctre::phoenix::motorcontrol::NeutralMode::Coast);
 }
 
-void ShooterSubsystem::SetSpeed(double motorSpeed)
+void ShooterSubsystem::SetSpeeds(double upperMotorSpeed, double lowerMotorSpeed)
 {
-    if (motorSpeed > 1.0)
+    if (upperMotorSpeed > 1.0)
     {
-        motorSpeed = 1.0;
+        upperMotorSpeed = 1.0;
     }
 
-    if (motorSpeed < -1.0)
+    if (upperMotorSpeed < -1.0)
     {
-        motorSpeed = -1.0;
+        upperMotorSpeed = -1.0;
     }
 
-    m_topMotorSpeed = -motorSpeed;
-    m_bottomMotorSpeed = motorSpeed;
+    if (lowerMotorSpeed > 1.0)
+    {
+        lowerMotorSpeed = 1.0;
+    }
+
+    if (lowerMotorSpeed < -1.0)
+    {
+        lowerMotorSpeed = -1.0;
+    }
+
+    m_topMotorSpeed = -upperMotorSpeed;
+    m_bottomMotorSpeed = lowerMotorSpeed;
 }
 
 void ShooterSubsystem::Periodic()

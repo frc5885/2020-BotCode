@@ -11,10 +11,11 @@
 
 bool g_autoShooterCommandFinished = false;
 
-AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double speed, 
-    ShooterSubsystem* subsystem)
+AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double upperSpeed, 
+    double lowerSpeed, ShooterSubsystem* subsystem)
     : m_subsystem{subsystem}
-    , m_speed(speed)
+    , m_upperSpeed(upperSpeed)
+    , m_lowerSpeed(lowerSpeed)
     , m_maxTime(maxTime)
 {
 }
@@ -34,12 +35,12 @@ void AutoShooterCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void AutoShooterCommand::Execute()
 {
-    m_subsystem->SetSpeed(m_speed);
+    m_subsystem->SetSpeeds(m_upperSpeed, m_lowerSpeed);
 }
 
 void AutoShooterCommand::End(bool interrupted)
 {
-    m_subsystem->SetSpeed(0.0);
+    m_subsystem->SetSpeeds(0.0, 0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
