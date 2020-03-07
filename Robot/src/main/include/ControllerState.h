@@ -68,7 +68,7 @@ public:
     float GetLeftTrig()const;
     float GetRumbleVibrate()const;
     float GetRumbleRumble()const;
-    void SetRumbles(int _rumble, float _rate)const;
+    void SetRumbles(double value);
 
 //Methods
 public:

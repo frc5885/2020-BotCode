@@ -22,7 +22,14 @@ void ConveyerCommand::Initialize()
 // Called repeatedly when this Command is scheduled to run
 void ConveyerCommand::Execute()
 {
-    m_subsystem->SetSpeed(-g_controller1->GetLeftY() * 0.75);
+    double leftY = g_controller1->GetLeftY();
+
+    if (std::abs(leftY) < .1)
+    {
+        leftY = 0.0;
+    }
+
+    m_subsystem->SetSpeed(-leftY * 0.75);
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -10,25 +10,32 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/ClimbSubsystem.h"
+#include "subsystems/ConveyerSubsystem.h"
 
-class ClimbCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ClimbCommand> 
+extern bool g_autoConveyerCommandFinished;
+
+class AutoConveyerCommand
+    : public frc2::CommandHelper<frc2::CommandBase, AutoConveyerCommand>
 {
 public:
     /**
-     * Creates a new ClimbCommand.
+     * Creates a new ShooterCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    explicit ClimbCommand(ClimbSubsystem* subsystem);
+    explicit AutoConveyerCommand(units::time::second_t maxTime, 
+        units::time::second_t delayTime, double speed, ConveyerSubsystem *subsystem);
 
     // scheduler handers for various states
     void Initialize() override;
     void Execute() override;
+    void End(bool interrupted) override;
     bool IsFinished() override;
 
 private:
-    ClimbSubsystem* m_subsystem;
-    bool m_enabled;
+    ConveyerSubsystem *m_subsystem;
+    double m_speed;
+    units::time::second_t m_maxTime, m_maxDelayTime;
+    frc2::Timer m_timer, m_delayTimer;
+    bool m_started;
 };

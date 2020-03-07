@@ -10,6 +10,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+#include "ControllerState.h"
+#include "ILimelight.h"
+
 void Robot::RobotInit() 
 {
 }
@@ -39,15 +42,22 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit() 
 {
-    // m_autonomousCommand = m_container.GetAutonomousCommand();
+    // make sure Limelight LEDs are off at startup
+    ILimelight limelight;
+    limelight.SetLedMode(LedMode::OFF);
 
-    // if (m_autonomousCommand != nullptr) 
-    // {
-    //     m_autonomousCommand->Schedule();
-    // }
+    m_autonomousCommand = m_container.GetAutonomousCommand();
+
+    if (m_autonomousCommand != nullptr) 
+    {
+        m_autonomousCommand->Schedule();
+    }
 }
 
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousPeriodic() 
+{
+//    printf("Autonomous periodic\n");
+}
 
 void Robot::TeleopInit() 
 {
@@ -55,11 +65,11 @@ void Robot::TeleopInit()
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    // if (m_autonomousCommand != nullptr) 
-    // {
-    //     m_autonomousCommand->Cancel();
-    //     m_autonomousCommand = nullptr;
-    // }
+    if (m_autonomousCommand != nullptr) 
+    {
+        m_autonomousCommand->Cancel();
+        m_autonomousCommand = nullptr;
+    }
 
     m_driveCommand = m_container.GetDriveCommand();
 
@@ -115,8 +125,10 @@ void Robot::TeleopInit()
  * This function is called periodically during operator control.
  */
 void Robot::TeleopPeriodic() 
-{
-    
+{ 
+    g_controller0->GetState();
+    g_controller1->GetState();
+    frc::SmartDashboard::PutNumber("Shooter % power", 100.0 * g_controller1->GetLeftTrig());
 }
 
 void Robot::TestInit()

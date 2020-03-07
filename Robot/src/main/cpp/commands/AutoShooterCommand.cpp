@@ -7,30 +7,50 @@
 
 #include "Constants.h"
 #include "ControllerState.h"
-#include "commands/ShooterCommand.h"
+#include "commands/AutoShooterCommand.h"
 
-ShooterCommand::ShooterCommand(ShooterSubsystem* subsystem)
-    : m_subsystem{subsystem} {}
+bool g_autoShooterCommandFinished = false;
+
+AutoShooterCommand::AutoShooterCommand(units::time::second_t maxTime, double speed, 
+    ShooterSubsystem* subsystem)
+    : m_subsystem{subsystem}
+    , m_speed(speed)
+    , m_maxTime(maxTime)
+{
+}
 
 
 // ***** public methods *****
 
 // Called just before this Command runs the first time
-void ShooterCommand::Initialize()
+void AutoShooterCommand::Initialize()
 {
+    printf("shooter intialize\n");
+    m_timer.Reset();
+    m_timer.Start();
+    g_autoShooterCommandFinished = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
-void ShooterCommand::Execute()
+void AutoShooterCommand::Execute()
 {
-    // speed is set from left trigger
-    // g_controller1->GetState();
- 
-    m_subsystem->SetSpeed(1.2 * g_controller1->GetLeftTrig());
+    m_subsystem->SetSpeed(m_speed);
+}
+
+void AutoShooterCommand::End(bool interrupted)
+{
+    m_subsystem->SetSpeed(0.0);
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ShooterCommand::IsFinished()
+bool AutoShooterCommand::IsFinished()
 {
-    return false;
+   bool finished = (m_timer.Get() > m_maxTime);
+
+   if (finished)
+   {
+       g_autoShooterCommandFinished = true;
+   }
+
+   return finished;
 }

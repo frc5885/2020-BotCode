@@ -19,28 +19,27 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class DriveCommand
-    : public frc2::CommandHelper<frc2::CommandBase, DriveCommand> 
+class DriveDistance
+    : public frc2::CommandHelper<frc2::CommandBase, DriveDistance>
 {
 public:
     /**
-     * Creates a new DriveCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
-    explicit DriveCommand(DriveSubsystem* subsystem);
+   * Creates a new ExampleCommand.
+   *
+   * @param subsystem The subsystem used by this command.
+   */
+    DriveDistance(units::time::second_t maxTime, double speed, DriveSubsystem *subsystem);
 
-    // scheduler handers for various states
     void Initialize() override;
+
     void Execute() override;
+    void End(bool interrupted) override;
+
     bool IsFinished() override;
 
-// private properties
 private:
-    DriveSubsystem* m_subsystem;
-
-    // private methods
-private:
-    double SmoothDriveCurve(double joystickYPosition) const;
-    double GetMotorSpeedFromVisionTarget();
+    DriveSubsystem *m_subsystem;
+    double m_speed;
+    units::time::second_t m_maxTime;
+    frc2::Timer m_timer;
 };

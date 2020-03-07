@@ -32,9 +32,6 @@ DriveSubsystem::DriveSubsystem()
    m_drive->SetSafetyEnabled(true);
    m_drive->SetExpiration(0.1);
    m_drive->SetMaxOutput(1.0);
-
-   // Init Limelight NetworkTable
-   nt_limelight = nt::NetworkTableInstance::GetDefault().GetTable("limelight");
 }
 
 void DriveSubsystem::SetLeftSpeed(double motorSpeed)
@@ -84,24 +81,25 @@ void DriveSubsystem::Periodic()
 
 double DriveSubsystem::GetLimeVerticalOffset()
 {
-    return nt_limelight->GetEntry("ty").GetDouble(0);
+    return m_limelight.GetVerticalOffset();
 }
 
 double DriveSubsystem::GetLimeHorizontalOffset()
 {
-    return nt_limelight->GetEntry("tx").GetDouble(0);
+    return m_limelight.GetHorizontalOffset();
 }
 
 bool DriveSubsystem::GetLimeVisibleTarget()
 {
-    return nt_limelight->GetEntry("tv").GetBoolean(0);
+    return m_limelight.GetVisibleTarget();
 }
+
 
 ////////////
 /// SETS ///
 ////////////
 
-void DriveSubsystem::setLimeLedMode(LedMode ledMode)
+void DriveSubsystem::SetLimeLedMode(LedMode ledMode)
 {
-    nt_limelight->PutNumber("ledMode", ledMode);
+    m_limelight.SetLedMode(ledMode);
 }

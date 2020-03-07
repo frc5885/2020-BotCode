@@ -9,13 +9,13 @@
 #include "RobotContainer.h"
 
 RobotContainer::RobotContainer() 
-    : m_autonomousCommand(&m_exampleSubsystem) 
-    , m_driveCommand(&m_driveSubsystem)
+    : m_driveCommand(&m_driveSubsystem)
     , m_intakeCommand(&m_intakeSubsystem)
     , m_shooterCommand(&m_shooterSubsystem)
     , m_colorWheelCommand(&m_colorWheelSubsystem)
     , m_conveyerCommand(&m_conveyerSubsystem)
     , m_climbCommand(&m_climbSubsystem)
+    , m_autoCommand(&m_driveSubsystem, &m_shooterSubsystem, &m_conveyerSubsystem)
 {
     // Initialize all of your commands and subsystems here
 
@@ -25,12 +25,6 @@ RobotContainer::RobotContainer()
 
 
 // ***** public methods *****
-
-frc2::Command *RobotContainer::GetAutonomousCommand()
-{
-    // An example command will be run in autonomous
-    return &m_autonomousCommand;
-}
 
 frc2::Command *RobotContainer::GetDriveCommand()
 {
@@ -66,6 +60,11 @@ frc2::Command *RobotContainer::GetClimbCommand()
 {
     // teleop climb command
     return &m_climbCommand;
+}
+
+frc2::Command *RobotContainer::GetAutonomousCommand()
+{
+    return &m_autoCommand;
 }
 
 // ***** private methods *****

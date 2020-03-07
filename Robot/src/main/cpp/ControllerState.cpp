@@ -95,11 +95,10 @@ float ControllerState::GetRumbleRumble() const
 	return m_rumbleRumble;
 }
 
-void ControllerState::SetRumbles(int _rumble, float _rate) const
+void ControllerState::SetRumbles(double value)
 {
-	//m_controller.SetRumble((int)0,0.5);
-
-	//m_controller.SetRumble((Joystick.RumbleType)(0), _rate);
+	m_controller.SetRumble(frc::GenericHID::RumbleType::kLeftRumble, value);
+	m_controller.SetRumble(frc::GenericHID::RumbleType::kRightRumble, value);
 }
 
 // Get current controller state

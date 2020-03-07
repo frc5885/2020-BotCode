@@ -7,28 +7,16 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/SequentialCommandGroup.h>
 
-#include "subsystems/ClimbSubsystem.h"
+#include "Constants.h"
+#include "commands/DriveDistance.h"
+#include "commands/AutoShooterCmdGroup.h"
 
-class ClimbCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ClimbCommand> 
+class Auto
+    : public frc2::CommandHelper<frc2::SequentialCommandGroup, Auto>
 {
 public:
-    /**
-     * Creates a new ClimbCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
-    explicit ClimbCommand(ClimbSubsystem* subsystem);
-
-    // scheduler handers for various states
-    void Initialize() override;
-    void Execute() override;
-    bool IsFinished() override;
-
-private:
-    ClimbSubsystem* m_subsystem;
-    bool m_enabled;
+    Auto(DriveSubsystem *drive, ShooterSubsystem *shooter, ConveyerSubsystem *conveyer);
 };

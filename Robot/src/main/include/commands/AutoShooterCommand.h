@@ -10,25 +10,31 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-#include "subsystems/ClimbSubsystem.h"
+#include "subsystems/ShooterSubsystem.h"
 
-class ClimbCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ClimbCommand> 
+extern bool g_autoShooterCommandFinished;
+
+class AutoShooterCommand
+    : public frc2::CommandHelper<frc2::CommandBase, AutoShooterCommand> 
 {
 public:
     /**
-     * Creates a new ClimbCommand.
+     * Creates a new AutoShooterCommand.
      *
      * @param subsystem The subsystem used by this command.
      */
-    explicit ClimbCommand(ClimbSubsystem* subsystem);
+    explicit AutoShooterCommand(units::time::second_t maxTime, double speed, 
+        ShooterSubsystem* subsystem);
 
     // scheduler handers for various states
     void Initialize() override;
     void Execute() override;
+    void End(bool interrupted) override;
     bool IsFinished() override;
-
+    
 private:
-    ClimbSubsystem* m_subsystem;
-    bool m_enabled;
+    ShooterSubsystem* m_subsystem;
+    double m_speed;
+    units::time::second_t m_maxTime;
+    frc2::Timer m_timer;
 };

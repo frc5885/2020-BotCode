@@ -7,28 +7,23 @@
 
 #pragma once
 
-#include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc2/command/ParallelCommandGroup.h>
 
-#include "subsystems/ClimbSubsystem.h"
+#include "Constants.h"
+#include "commands/AutoShooterCommand.h"
+#include "commands/AutoConveyerCommand.h"
 
-class ClimbCommand
-    : public frc2::CommandHelper<frc2::CommandBase, ClimbCommand> 
+class AutoShooterCmdGroup
+    : public frc2::CommandHelper<frc2::ParallelCommandGroup, AutoShooterCmdGroup>
 {
+// public methods
 public:
-    /**
-     * Creates a new ClimbCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
-    explicit ClimbCommand(ClimbSubsystem* subsystem);
-
-    // scheduler handers for various states
-    void Initialize() override;
-    void Execute() override;
+    AutoShooterCmdGroup(ShooterSubsystem *shooter, ConveyerSubsystem *conveyer);
     bool IsFinished() override;
 
+// private properties
 private:
-    ClimbSubsystem* m_subsystem;
-    bool m_enabled;
+    std::unique_ptr<AutoShooterCommand> m_pShooterCommand;
+    std::unique_ptr<AutoConveyerCommand> m_pConveyerCommand;
 };
