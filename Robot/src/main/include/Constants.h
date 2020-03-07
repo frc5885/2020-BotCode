@@ -55,3 +55,8 @@ static constexpr frc::Color kBlueTarget = frc::Color(0.170, 0.433, 0.395);
 static constexpr frc::Color kGreenTarget = frc::Color(0.225, 0.558, 0.217);
 static constexpr frc::Color kRedTarget = frc::Color(0.605, 0.308, 0.080);
 static constexpr frc::Color kYellowTarget = frc::Color(0.405, 0.502, 0.091);
+
+// PI, Radians -> Degrees, Degrees -> Radians
+const double kPI = 3.14159265;
+const double kDeg2Rad = .01745329252;
+const double kRad2Deg = 57.2957795131;

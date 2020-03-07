@@ -28,15 +28,7 @@ public:
     // Will be called periodically whenever the CommandScheduler runs.
     void Periodic() override;
     
-    // Limelight Gets
-    double GetLimeHorizontalOffset();
-    double GetLimeVerticalOffset();
-    bool GetLimeVisibleTarget();
-    
-    // Limelight Sets
-    void SetLimeLedMode(LedMode ledMode);
-
-    // properties
+// properties
 private:
     // Components (e.g. motor controllers and sensors) should generally be
     // declared private and exposed only through public methods.

@@ -25,7 +25,15 @@ void Robot::RobotInit()
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Robot::RobotPeriodic()
+{
+    frc2::CommandScheduler::GetInstance().Run();
+    ILimelight ll;
+
+    double d = ll.GetDistanceToTarget();
+    printf("tx = %3.2f, ty = %3.2f, ts = %3.2f d = %3.2f\n",
+           ll.GetHorizontalAngle(), ll.GetVerticalAngle(), ll.GetSkewAngle(), d);
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
@@ -44,7 +52,7 @@ void Robot::AutonomousInit()
 {
     // make sure Limelight LEDs are off at startup
     ILimelight limelight;
-    limelight.SetLedMode(LedMode::OFF);
+    limelight.SetLedMode(LedMode::ON);
 
     m_autonomousCommand = m_container.GetAutonomousCommand();
 
@@ -147,7 +155,6 @@ void Robot::TestInit()
  */
 void Robot::TestPeriodic()
 {
-
 }
 
 #ifndef RUNNING_FRC_TESTS

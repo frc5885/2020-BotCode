@@ -10,6 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+#include "ILimelight.h"
 #include "subsystems/DriveSubsystem.h"
 
 /**
@@ -39,7 +40,10 @@ public:
 private:
     DriveSubsystem* m_subsystem;
 
-    // private methods
+    // Class with 'friendly' Limelight functions
+    ILimelight m_limelight;
+
+// private methods
 private:
     double SmoothDriveCurve(double joystickYPosition) const;
     double GetMotorSpeedFromVisionTarget();

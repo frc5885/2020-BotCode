@@ -1,27 +1,34 @@
-#include "ILimelight.h"
 
 #include <math.h>
+#include "Constants.h"
+#include "ILimelight.h"
 
 // ***** Public Methods *****
  
 // Limelight Gets
-double ILimelight::GetHorizontalOffset()
-{
-    return GetNetworkTable()->GetEntry("ty").GetDouble(0);
-}
-
-double ILimelight::GetVerticalOffset()
+double ILimelight::GetHorizontalAngle()
 {
     return GetNetworkTable()->GetEntry("tx").GetDouble(0);
 }
 
-double ILimelight::GetDistanceToTarget()
+double ILimelight::GetVerticalAngle()
 {
-    double trueAngle = GetRadians(k_limelightAngle - GetNetworkTable()->GetEntry("ty").GetDouble(0));
-    return k_targetHeight / tan(trueAngle);
+    return GetNetworkTable()->GetEntry("ty").GetDouble(0);
 }
 
-bool ILimelight::GetVisibleTarget()
+double ILimelight::GetSkewAngle()
+{
+    return GetNetworkTable()->GetEntry("ts").GetDouble(0);
+}
+
+double ILimelight::GetDistanceToTarget()
+{
+    double trueAngle = kDeg2Rad*(k_limelightAngle + GetVerticalAngle());
+//    printf("Ang: %3.2f\n", trueAngle);
+    return (k_targetHeight / tan(trueAngle));
+}
+
+bool ILimelight::TargetIsVisible()
 {
     return GetNetworkTable()->GetEntry("tv").GetBoolean(0);
 }
@@ -39,9 +46,4 @@ void ILimelight::SetLedMode(const LedMode &mode)
 std::shared_ptr<nt::NetworkTable> ILimelight::GetNetworkTable()
 {
     return nt::NetworkTableInstance::GetDefault().GetTable("limelight");
-}
-
-double ILimelight::GetRadians(double degree)
-{
-    return (degree * 3.14159265) / 180;
 }

@@ -66,14 +66,14 @@ void DriveCommand::Execute()
         // Enable vision assisted targeting
 
         // Turn on the LEDs and set the motor speed
-        m_subsystem->SetLimeLedMode(LedMode::ON);
+        m_limelight.SetLedMode(LedMode::ON);
         leftY = GetMotorSpeedFromVisionTarget();
         rightY = -leftY;
     }
     else
     {
         // ensure that the Limelight LEDs are off
-        m_subsystem->SetLimeLedMode(LedMode::OFF);
+        m_limelight.SetLedMode(LedMode::ON); // TODO: change back to off
     }
     
     // motor gain value - used to slow down drive system for new drivers
@@ -118,7 +118,7 @@ double DriveCommand::SmoothDriveCurve(double joystickYPosition) const
 double DriveCommand::GetMotorSpeedFromVisionTarget()
 {
     // Error as target approaches 0
-    double k_error = m_subsystem->GetLimeHorizontalOffset();
+    double k_error = m_limelight.GetHorizontalAngle();
     
     // As the bot approaches the target, the motor power will get lower.
     // The error max is -27/27 and the min is 0.
@@ -140,6 +140,8 @@ double DriveCommand::GetMotorSpeedFromVisionTarget()
     // Stop the motors when we are within 0.75 degrees.
     if (fabs(k_error) <= 0.9)
         k_output = 0.0;
+
+    printf("LIME: %3.4f\n", k_output);
 
     return k_output;   
 }

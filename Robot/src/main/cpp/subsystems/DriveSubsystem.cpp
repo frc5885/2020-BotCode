@@ -66,41 +66,7 @@ void DriveSubsystem::SetRightSpeed(double motorSpeed)
 
 void DriveSubsystem::Periodic()
 {
-    printf("DISTANCE: %3.4f", m_limelight.GetDistanceToTarget());
+ //   printf("DISTANCE: %3.4f\n", m_limelight.GetDistanceToTarget());
     //    printf("left speed = %3.2f right speed = %3.2f\n", m_leftSpeed, m_rightSpeed);
     m_drive->TankDrive(m_leftSpeed, m_rightSpeed);
-}
-
-
-/////////////////
-/// Limelight ///
-/////////////////
-
-////////////
-/// GETS ///
-////////////
-
-double DriveSubsystem::GetLimeVerticalOffset()
-{
-    return m_limelight.GetVerticalOffset();
-}
-
-double DriveSubsystem::GetLimeHorizontalOffset()
-{
-    return m_limelight.GetHorizontalOffset();
-}
-
-bool DriveSubsystem::GetLimeVisibleTarget()
-{
-    return m_limelight.GetVisibleTarget();
-}
-
-
-////////////
-/// SETS ///
-////////////
-
-void DriveSubsystem::SetLimeLedMode(LedMode ledMode)
-{
-    m_limelight.SetLedMode(ledMode);
 }
