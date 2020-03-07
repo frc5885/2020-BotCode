@@ -66,7 +66,8 @@ void DriveSubsystem::SetRightSpeed(double motorSpeed)
 
 void DriveSubsystem::Periodic()
 {
-//    printf("left speed = %3.2f right speed = %3.2f\n", m_leftSpeed, m_rightSpeed);
+    printf("DISTANCE: %3.4f", m_limelight.GetDistanceToTarget());
+    //    printf("left speed = %3.2f right speed = %3.2f\n", m_leftSpeed, m_rightSpeed);
     m_drive->TankDrive(m_leftSpeed, m_rightSpeed);
 }
 

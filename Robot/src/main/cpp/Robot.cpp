@@ -129,6 +129,7 @@ void Robot::TeleopPeriodic()
     g_controller0->GetState();
     g_controller1->GetState();
     frc::SmartDashboard::PutNumber("Shooter % power", 100.0 * g_controller1->GetLeftTrig());
+    // frc::SmartDashboard::PutNumber("Limelight Distance", )
 }
 
 void Robot::TestInit()
