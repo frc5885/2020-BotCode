@@ -47,4 +47,8 @@ private:
 private:
     double SmoothDriveCurve(double joystickYPosition) const;
     double GetMotorSpeedFromVisionTarget();
+
+    frc2::Timer m_timer;
+    units::time::second_t pastTime;
+    double prev_error;
 };

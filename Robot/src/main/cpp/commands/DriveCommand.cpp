@@ -10,8 +10,12 @@
 #include "commands/DriveCommand.h"
 
 DriveCommand::DriveCommand(DriveSubsystem *subsystem)
-    : m_subsystem{subsystem} 
+    : m_subsystem{subsystem},
+      pastTime(0.0_s),
+      prev_error(0.0)
 {
+    m_timer.Reset();
+    m_timer.Start();
 }
 
 
@@ -83,6 +87,9 @@ void DriveCommand::Execute()
 
     //printf("left motor = %3.2f right motor = %3.2f\n", gain*leftY, gain*rightY);
 
+    pastTime = m_timer.Get();
+    prev_error = m_limelight.GetHorizontalAngle();
+
     m_subsystem->SetLeftSpeed(gain * leftY);
     m_subsystem->SetRightSpeed(gain * rightY);
 }
@@ -126,16 +133,14 @@ double DriveCommand::GetMotorSpeedFromVisionTarget()
     // enough as low motor power will make them not turn.
     
     // Motor output at min error
-    double k_min_pow = .40;//0.6;
-    
-    // Motor output at max error
-    double k_max_pow = .7;//0.9;
+    double k_P = 0.55;
+    double k_D = 0.0;
 
     // Sign (+/-) of the error
-    double k_sign = k_error >= 0 ? 1.0 : -1.0;
-    
+    // double k_sign = k_error >= 0 ? 1.0 : -1.0;
+
     // Calculate the output (Desmos: https://www.desmos.com/calculator/mxfs6w0vzx)
-    double k_output = k_sign * (((k_min_pow-k_max_pow)/(-27.0)) * fabs(k_error) + k_min_pow);
+    double k_output = k_P * k_error + k_D * ((k_error-prev_error)/(double)(m_timer.Get()-pastTime));
 
     // Stop the motors when we are within 0.75 degrees.
     if (fabs(k_error) <= 0.9)
